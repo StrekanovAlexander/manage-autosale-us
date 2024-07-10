@@ -1,25 +1,25 @@
-import fs from 'fs';
-import { Op, Sequelize } from 'sequelize';
+const fs = require('fs');
+const { Op, Sequelize } = require('sequelize');
 
-import Account from '../models/Account.js';
-import Lot from '../models/Lot.js';
-import LotStatus from '../models/LotStatus.js';
-import Brand from '../models/Brand.js';
-import Model from '../models/Model.js';
+const Account = require('../models/Account.js');
+const Lot = require('../models/Lot.js');
+const LotStatus = require('../models/LotStatus.js');
+const Brand = require('../models/Brand.js');
+const Model = require('../models/Model.js');
 
-import Specification from '../models/Specification.js';
-import SpecificationItem from '../models/SpecificationItem.js';
-import OperationType from '../models/OperationType.js';
-import Operation from '../models/Operation.js';
+const Specification = require('../models/Specification.js');
+const SpecificationItem = require('../models/SpecificationItem.js');
+const OperationType = require('../models/OperationType.js');
+const Operation = require('../models/Operation.js');
 
-import User from '../models/User.js';
-import VehicleStyle from '../models/VehicleStyle.js';
+const User = require('../models/User.js');
+const VehicleStyle = require('../models/VehicleStyle.js');
 
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
-import utils from '../common/utils.js';
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
+const utils = require('../common/utils.js');
 
 const offset = 100;
 
@@ -350,4 +350,16 @@ const upload = (req, res) => {
     return res.redirect(`/lots/${ id }/files`);  
 }
 
-export default { all, create, store, edit, update, details, editDate, editPrice, currentLots, files, upload };
+module.exports = { 
+    all, 
+    create, 
+    store, 
+    edit, 
+    update, 
+    details, 
+    editDate, 
+    editPrice, 
+    currentLots, 
+    files, 
+    upload
+}

@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const LotStatus = sequelize.define('LotStatus', {
     title: DataTypes.STRING,
@@ -14,4 +14,4 @@ const LotStatus = sequelize.define('LotStatus', {
     updatedAt: 'updated_at'
 });
 
-export default LotStatus;
+module.exports = LotStatus;

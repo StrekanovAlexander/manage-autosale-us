@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const Specification = sequelize.define('Specification', {
     title: DataTypes.STRING,
@@ -14,4 +14,4 @@ const Specification = sequelize.define('Specification', {
     updatedAt: 'updated_at'
 });
 
-export default Specification;
+module.exports = Specification;

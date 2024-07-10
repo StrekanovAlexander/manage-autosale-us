@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const Model = sequelize.define('Model', {
     brand_id: DataTypes.INTEGER,
@@ -15,4 +15,4 @@ const Model = sequelize.define('Model', {
     updatedAt: 'updated_at'
 });
 
-export default Model;
+module.exports = Model;

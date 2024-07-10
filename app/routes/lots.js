@@ -1,6 +1,6 @@
-import express from 'express';
-import lotController from '../controllers/LotController.js';
-import auth from '../middleware/auth.js';
+const express = require('express');
+const lotController = require('../controllers/LotController.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.post('/price/edit', auth, lotController.editPrice);
 router.get('/:id/files', lotController.files);
 router.post('/files/upload', lotController.upload);
 
-export default router;
+module.exports = router;

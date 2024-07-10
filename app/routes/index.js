@@ -2,7 +2,7 @@
 // import api from './api.js';
 // import brands from './brands.js';
 const home = require('./home');
-// import lots from './lots.js';
+const lots = require('./lots.js');
 const operations = require('./operations.js');
 // import operationTypes from './operation-types.js';
 // import reports from './reports.js';
@@ -16,7 +16,7 @@ module.exports = {
     // api,
     // brands, 
     home, 
-    // lots, 
+    lots, 
     operations, 
     // operationTypes,
     // reports, 

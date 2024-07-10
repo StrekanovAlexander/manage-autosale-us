@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const SpecificationItem = sequelize.define('SpecificationItem', {
     specification_id: DataTypes.INTEGER,
@@ -15,4 +15,4 @@ const SpecificationItem = sequelize.define('SpecificationItem', {
     updatedAt: 'updated_at'
 });
 
-export default SpecificationItem;
+module.exports = SpecificationItem;

@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const VehicleStyle = sequelize.define('VehicleStyle', {
     title: DataTypes.STRING,
@@ -14,4 +14,4 @@ const VehicleStyle = sequelize.define('VehicleStyle', {
     updatedAt: 'updated_at'
 });
 
-export default VehicleStyle;
+module.exports = VehicleStyle;
