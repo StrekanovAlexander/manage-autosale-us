@@ -21,5 +21,7 @@ const make = (url, title) => {
     return { url, title }
 };
 
-export default { build, make }
-
+module.exports = { 
+    build, 
+    make 
+}

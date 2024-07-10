@@ -1,11 +1,10 @@
-/*
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import helpers from '../common/helpers.js';
-import breadcrumb from '../common/breadcrumb.js';
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const helpers = require('../common/helpers.js');
+const breadcrumb = require('../common/breadcrumb.js');
 
-import Role from '../models/Role.js';
-import User from '../models/User.js';
+const Role = require('../models/Role.js');
+const User = require('../models/User.js');
 
 const login = async (req, res) => {
     const { username, password } = req.body;
@@ -41,17 +40,16 @@ const logout = (req, res) => {
     delete req.session.token;
 	return res.redirect('/');
 };
-*/
 
 const home = (req, res) => {
     res.render('home', { 
         title: 'Home', 
-    //    breadcrumb: breadcrumb.build() 
+        breadcrumb: breadcrumb.build() 
     });
 };
 
 module.exports = {
-    home
+    home,
+    login,
+    logout
 }
-
-// export default { login, logout, home };

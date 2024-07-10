@@ -26,6 +26,10 @@ async function init() {
 
     app.use('/', routes.home);
 
+    app.all('*', (req, res) => { 
+      res.status(404).send('404! Page not found'); 
+    }); 
+
     app.listen(process.env.PORT);
   } catch (e) {
     console.error('Can`t connect to database', e);
