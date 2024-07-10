@@ -2,13 +2,19 @@ require('dotenv').config();
 
 const express = require('express');
 const hbs = require('express-handlebars');
+const paginate = require('express-paginate');
 const session = require('express-session');
 
 const helpers = require('./app/common/helpers');
 const routes = require('./app/routes');
 const sequelize = require('./app/db/sequelize');
 
+const rowsLimit = 15;
+const rowsMaxLimit = rowsLimit;
+
 const app = express();
+
+app.use(paginate.middleware(rowsLimit, rowsMaxLimit));
 
 app.use(session({ secret: process.env.JWT_KEY, resave: false, saveUninitialized: true }));
 

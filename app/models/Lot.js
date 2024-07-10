@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const Lot = sequelize.define('Lot', {
     account_id: DataTypes.INTEGER,
@@ -33,4 +33,4 @@ const Lot = sequelize.define('Lot', {
     updatedAt: 'updated_at'
 });
 
-export default Lot;
+module.exports = Lot;

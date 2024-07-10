@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const Account = sequelize.define('Account', {
     title: DataTypes.STRING,
@@ -19,4 +19,4 @@ const Account = sequelize.define('Account', {
     updatedAt: 'updated_at'
 });
 
-export default Account;
+module.exports = Account;

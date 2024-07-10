@@ -1,4 +1,4 @@
-export const message = (req) => {
+exports.message = (req) => {
     let msg = null;
     if (req.session.msg) {
         msg = req.session.msg;
@@ -7,6 +7,6 @@ export const message = (req) => {
     return msg;
 }
 
-export const setMessage = (req, title, type) => {
+exports.setMessage = (req, title, type) => {
     req.session.msg = { title, type };
 }

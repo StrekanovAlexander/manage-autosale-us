@@ -1,3 +1,3 @@
-export default (path) => {
+module.exports = (path) => {
     return  `<script src="/scripts/${path}"></script>`;
 }

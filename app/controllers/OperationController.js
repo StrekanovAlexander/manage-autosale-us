@@ -1,22 +1,21 @@
-import { Op } from 'sequelize';
-import paginate from 'express-paginate';
-import Account from '../models/Account.js';
-import Lot from '../models/Lot.js';
-import Operation from '../models/Operation.js';
-import OperationType from '../models/OperationType.js';
-import User from '../models/User.js';
+const { Op } = require('sequelize');
+const paginate = require('express-paginate');
+const Account = require('../models/Account.js');
+const Lot = require('../models/Lot.js');
+const Operation = require('../models/Operation.js');
+const OperationType = require('../models/OperationType.js');
+const User = require('../models/User.js');
 
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
 
 Operation.belongsTo(Account, { as: 'account', foreignKey: 'account_id' });
 Operation.belongsTo(Account, { as: 'subAccount', foreignKey: 'sub_account_id' });
 Operation.belongsTo(Lot, { foreignKey: 'lot_id' });
 Operation.belongsTo(OperationType, { foreignKey: 'operation_type_id' });
 Operation.belongsTo(User, { foreignKey: 'user_id' });
-
 
 const all = async (req, res) => {
     
@@ -121,4 +120,10 @@ const remove = async (req, res) => {
     
 }
 
-export default { all, store, update, storeLot, remove };
+module.exports = { 
+    all, 
+    store, 
+    storeLot, 
+    remove,
+    update
+}

@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/sequelize.js';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db/sequelize.js');
 
 const Operation = sequelize.define('Operation', {
     account_id: DataTypes.INTEGER,
@@ -32,4 +32,4 @@ const Operation = sequelize.define('Operation', {
     updatedAt: 'updated_at'
 });
 
-export default Operation;
+module.exports = Operation;
