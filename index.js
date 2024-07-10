@@ -33,6 +33,7 @@ async function init() {
     app.use('/', routes.home);
     app.use('/lots', routes.lots);
     app.use('/operations', routes.operations);
+    app.use('/reports', routes.reports);
 
     app.all('*', (req, res) => { 
       res.status(404).send('404! Page not found'); 

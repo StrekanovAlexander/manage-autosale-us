@@ -1,8 +1,8 @@
-import { Sequelize } from 'sequelize';
-import breadcrumb from '../common/breadcrumb.js';
-import Account from '../models/Account.js';
-import Operation from '../models/Operation.js';
-import OperationType from '../models/OperationType.js';
+const { Sequelize } = require('sequelize');
+const breadcrumb = require('../common/breadcrumb');
+const Account = require('../models/Account');
+const Operation = require('../models/Operation');
+const OperationType = require('../models/OperationType');
 
 Operation.belongsTo(Account, { as: 'SubAccount', foreignKey: 'sub_account_id' });
 Operation.belongsTo(OperationType, { foreignKey: 'operation_type_id' });
@@ -77,4 +77,7 @@ const account = async (req, res) => {
     });
 }
 
-export default { accounts, account }
+module.exports = { 
+    accounts, 
+    account
+}
