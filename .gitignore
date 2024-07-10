@@ -1,0 +1,4 @@
+node_modules
+package-lock.json
+public/images
+app/db/sequelize.js

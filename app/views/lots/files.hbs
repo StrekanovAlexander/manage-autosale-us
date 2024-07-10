@@ -1,0 +1,41 @@
+<h2>{{ lot.Model.dataValues.title }} ({{ lot.year }}). Stock No: {{ lot.stock_id }}</h2>
+<form action="/lots/files/upload" method="POST" enctype="multipart/form-data" >
+    <div class="mb-2">
+        <input type="file" class="form-control form-control-sm" name="vehicle">
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">
+        <i class="bi bi-upload"></i> Upload
+    </button>
+    <input type="hidden" name="id" value="{{ lot.id }}" />
+    <input type="hidden" name="stock_id" value="{{ lot.stock_id }}" />
+</form>
+{{#if files}}
+<div class="row mt-4">
+    {{#each files }}
+        <div class="col-2">
+            <img src="/images/vehicles/{{ ../lot.stock_id}}/{{ this }}" class="img-item" 
+                data-bs-toggle="modal" data-bs-target="#modal-img" />
+        </div>
+    {{/each }}
+</div>
+
+<div class="modal modal-lg" id="modal-img">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>{{ lot.Model.dataValues.title }} ({{ lot.year }}). Stock No: {{ lot.stock_id }}</h5>
+                <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="img-target" class="img-item" />                  
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const imgs = document.querySelectorAll('.img-item');
+    [...imgs].forEach(el => el.addEventListener('click', (ev) => {
+        document.querySelector('#img-target').src = ev.target.src;
+    }));
+</script>
+{{/if}}

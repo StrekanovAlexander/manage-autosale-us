@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Authorization</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+</head>
+<body>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-8">
+            <form action="/login" method="POST">
+                <div class="card mx-3">
+                    <div class="card-header text-center">Authorization</div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-2 text-center">
+                                <i class="bi bi-person-circle lead text-secondary"></i>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm" 
+                                    name="username" value="admin" placeholder="Login" />
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-2 text-center">
+                                <i class="bi bi-shield-lock-fill lead text-secondary"></i>
+                            </div>
+                            <div class="col">
+                                <input type="password" class="form-control form-control-sm" 
+                                    name="password" value="admin" placeholder="Password" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-key-fill"></i> Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </form>
+        </div>
+    </div>
+</body>
+</html>

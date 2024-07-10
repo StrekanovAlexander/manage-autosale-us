@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <form action="/specifications/specification-items/edit" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col small">
+                            Record properties
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="specification-title" class="form-label small">Specification</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm" id="specification-title" 
+                                name="specification-title" value="{{ specificationItem.Specification.dataValues.title }}" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="title" class="form-label small">Title</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm" 
+                                id="title" name="title" value="{{ specificationItem.title }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="activity" class="form-label small">Activity</label>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-check-input" type="checkbox" id="activity" 
+                                name="activity" {{#if specificationItem.activity }} value="on" checked {{/if}} 
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/specifications" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Cancel
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="id" value="{{ specificationItem.id }}" />
+                <input type="hidden" name="specification_id" value="{{ specificationItem.Specification.dataValues.id }}" />
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <form action="/users/create" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col small">
+                            Record properties
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="username" class="form-label small">Login</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm" id="username" name="username" />
+                            <span class="fs-75 text-muted fst-italic">At least 5 characters</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="role_id" class="form-label small">Role</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select form-select-sm" id="role_id" name="role_id">
+                            {{#each roles}}
+                                <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                            {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="password" class="form-label small">Password</label>
+                        </div>
+                        <div class="col">
+                            <input type="password" class="form-control form-control-sm" id="password" name="password" />
+                            <span class="fs-75 text-muted fst-italic">at least 5 characters</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="password2" class="form-label small">re-Password</label>
+                        </div>
+                        <div class="col">
+                            <input type="password" class="form-control form-control-sm" id="password2" name="password2" />
+                            <div class="invalid-feedback fs-75 fst-italic">Password mismatch</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/users" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Cancel
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary" disabled>
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

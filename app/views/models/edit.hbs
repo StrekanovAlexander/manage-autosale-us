@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <form action="/brands/models/edit" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col small">
+                            Record properties
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="title" class="form-label small">Title</label>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="text" class="form-control form-control-sm" 
+                                        value="{{ model.Brand.dataValues.title }}" readonly />
+                                    <span class="fs-75 text-muted fst-italic">Brand</span>    
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" 
+                                    id="title" name="title" value="{{ model.title }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="activity" class="form-label small">Activity</label>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-check-input" type="checkbox" name="activity" {{#if model.activity }}checked{{/if}} />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/brands/{{ model.brand_id }}/models" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Cancel
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="id" value="{{ model.id }}" />
+                <input type="hidden" name="brand_id" value="{{ model.brand_id }}" />
+            </form>
+        </div>
+    </div>
+</div>

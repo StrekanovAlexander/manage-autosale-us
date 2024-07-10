@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <form action="/brands/models/create" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col small">
+                            Record properties
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="title" class="form-label small">Title</label>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="text" class="form-control form-control-sm" 
+                                        value="{{ brand.title }}" readonly />
+                                    <span class="fs-75 text-muted fst-italic">Brand</span>    
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" 
+                                    id="title" name="title" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/brands/{{ brand.id}}/models" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Cancel
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary" disabled>
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="brand_id" value="{{ brand.id }}" />
+            </form>
+        </div>
+    </div>
+</div>

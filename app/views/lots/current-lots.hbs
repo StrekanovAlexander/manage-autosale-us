@@ -1,0 +1,36 @@
+{{#if lots }}
+    <table class="table table-sm table-bordered">
+        <tr>
+            <th class="text-end">Stock No</th>
+            <th>Model</th>
+            <th class="text-center">Date buy</th>
+            <th class="text-center">Date ready</th>
+            <th class="text-center">Days repair</th>
+            <th class="text-center">Days sale</th>
+            <th class="text-center">Days downtime</th>
+            <th class="text-end">Total cost</th>
+            <th class="text-end">Target price</th>
+            <th class="text-end">Тarget margin</th>
+            <th class="text-end">Money price</th>
+            <th class="text-end">Мarginality</th>
+        </tr>
+        {{#each lots }}
+            {{#with this.dataValues }}
+            <tr>
+                <td class="text-end">{{ stock_id }}</td>
+                <td>{{ Model.dataValues.title }} ({{ year }})</td>
+                <td class="text-center">{{ date_buy }}</td>
+                <td class="text-center">{{ date_ready }}</td>
+                <td class="text-center">{{ days_repair }}</td>
+                <td class="text-center">{{ days_sale }}</td>
+                <td class="text-center">{{ days_downtime }}</td>
+                <td class="text-end">{{ currency total_cost }}</td>
+                <td class="text-end">{{ currency target_price }}</td>
+                <td class="text-end">{{ currency target_margin }}</td>
+                <td class="text-end">{{ currency money_price }}</td>
+                <td class="text-end">{{ currency marginality }}</td>
+            </tr>
+            {{/with }}
+        {{/each}}
+    </table>
+{{/if}}

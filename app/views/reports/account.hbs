@@ -1,0 +1,57 @@
+<table class="table table-sm table-bordered">
+    <tr>
+        <th class="col-1 text-end">ID</th>
+        <th class="col-1 text-center">Date</th>
+        <th class="col-2">Operation type</th>
+        {{#each subAccounts }}
+            <th class="col-1 text-end">{{ this.title }}</th>
+        {{/each}}
+        <th class="col text-center">Description</th>
+    </tr>
+    <tr class="bg-light">
+        <td class="text-end"><a href="#" id="btn-operations">Details</a></td>
+        <td colspan="2"></td>
+        {{#each subAccounts }}
+            <td class="fw-bold small text-end">{{ currency this.amount }}</td>
+        {{/each}}
+        <td></td>
+    </tr>
+</table> 
+{{#if operations}}
+<div class="hidden" id="operations">
+    <table class="table table-sm table-bordered">    
+        {{#each operations}}
+        <tr class="small">
+            <td class="col-1 text-end">
+                {{ this.id }}
+            </td>
+            <td class="col-1 text-center">{{ this.date_reg }}</td>
+            <td class="col-2">{{ this.operationType }}</td>
+            {{#each this.subAccounts}}
+                <td class="col-1 text-end">{{ currency amount }}</td>
+            {{/each}}
+            <td class="col text-start">{{ this.description }}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{/if}}
+<script>
+(() => {
+    document.querySelector('#btn-operations').addEventListener('click', (ev) => {
+        const el = document.querySelector('#operations');
+        toggleVisibility(el);
+        ev.target.text = el.classList.contains('visible') ? 'Hide details' : 'Details';
+    });
+
+    function toggleVisibility(el) {
+        if (el.classList.contains('hidden')) {
+            el.classList.remove('hidden');
+            el.classList.add('visible');
+        } else if (el.classList.contains('visible')) {
+            el.classList.remove('visible');
+            el.classList.add('hidden');
+        }
+    }
+})();
+</script>

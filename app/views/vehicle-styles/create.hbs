@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <form action="/origins/create" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col small">
+                            Свойства записи
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                             <label for="title" class="form-label small">Наименование</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm" id="title" name="title" />
+                            <span class="fs-75 text-muted fst-italic">Не менее 3 символов</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/origins" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Отмена
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary" disabled>
+                        <i class="bi bi-save2"></i> Записать
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

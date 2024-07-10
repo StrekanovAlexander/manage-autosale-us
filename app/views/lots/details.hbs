@@ -1,0 +1,408 @@
+<div class="row mb-3">
+    <div class="col-md-3">
+        <table class="table table-sm table-bordered">
+            <tr>
+               <td class="col fw-bold">Stock No</td>
+               <td class="col">{{ lot.stock_id }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Lot Number</td>
+               <td class="col">{{ lot.number_id }}</td> 
+            </tr>
+             <tr>
+               <td class="col fw-bold">Account (dealer)</td>
+               <td class="col">{{ lot.Account.dataValues.title }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Vehicle style</td>
+               <td class="col">{{ lot.VehicleStyle.dataValues.title }}</td> 
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-sm table-bordered">
+             <tr>
+               <td class="col fw-bold">Model</td>
+               <td class="col">{{ lot.Model.dataValues.title }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Vin</td>
+               <td class="col">{{ lot.vin }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Year</td>
+               <td class="col">{{ lot.year }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Status</td>
+               <td class="col">{{ lot.LotStatus.dataValues.title }}</td> 
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-sm table-bordered">
+             <tr>
+               <td class="col fw-bold">Date buy</td>
+               <td class="col">{{ lot.date_buy }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Date ready</td>
+               <td class="col">{{ lot.date_ready }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Date sale</td>
+               <td class="col">{{ lot.date_sale }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Target price</td>
+               <td class="col">{{ currency lot.target_price }}</td> 
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-sm table-bordered">
+            <tr>
+               <td colspan="2" class="fw-bold">Description</td>
+            </tr>
+            <tr>
+               <td colspan="2">{{ lot.description }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<p>
+    <a href="#" id="btn-specifications">Show specifications</a>
+</p>
+<div class="row hidden" id="specifications">
+    <ul class="col-4">
+        {{#if specifications}}
+        <table class="table table-sm table-bordered">
+            {{#each specifications }}
+            <tr>
+                <td class="col-6 fw-bold">{{ this.title }}</td>
+                <td class="col-6">{{ this.itemTitle }}</td>
+            </tr>
+            {{/each}}
+        </table>    
+        {{/if}}  
+    </div>  
+</div>
+
+<div class="row">
+    <div class="col">
+        <button type="button" id="btn-add-cost" data-lot-id="{{ lot.id }}" 
+            class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCostEdit">
+            <i class="bi bi-plus-square"></i> Add cost
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCostSummary">
+            <i class="bi bi-card-list"></i> Cost summary
+        </button>
+        <a href="/lots/{{ lot.id }}/files" class="btn btn-primary btn-sm" title="Edit"> 
+            <i class="bi bi-card-image"></i> Files
+        </a>
+    </div>
+    <div class="col text-end">
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDatesEdit">
+            <i class="bi bi-calendar-check"></i> Edit dates
+        </button>
+        <button type="button" id="btn-edit-price" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalPriceEdit">
+            <i class="bi bi-currency-dollar"></i> Set price
+        </button>
+        <a href="/lots/{{ lot.id }}/edit" class="btn btn-primary btn-sm" title="Edit"> 
+            <i class="bi bi-gear"></i> Edit lot
+        </a>
+    </div>
+</div>
+
+<h2 class="mt-4">Costs</h2>
+{{#if operations}}
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th class="col-1 text-end">ID</th>
+                <th class="col-1 text-center">Date</th>
+                <th class="col-1">Subject</th>
+                <th class="col-2">Operation type</th>
+                <th class="col-1 text-end">Amount</th>
+                <th class="col-2">Description</th>
+                <th class="col-1">Author</th>
+                <th class="col-2">Created at</th>
+                <th class="col-1"></th>
+            </tr>
+        </thead>
+        {{#each operations}}
+            {{#with this.dataValues}}
+                <tr id="cost-row-id-{{ id }}">
+                    <td class="text-end">{{ id }}</td>
+                    <td class="text-center">{{ date_reg }}</td>
+                    <td>{{ subAccount.dataValues.title }}</td>
+                    <td>{{ OperationType.dataValues.title }}</td>
+                    <td class="text-end">{{ currency amount }}</td>
+                    <td>{{ description }}</td>
+                    <td>{{ User.dataValues.username }}</td>
+                    <td>{{ date created_at }} {{ time created_at }}</td>
+                    <td class="text-center">
+                        <a href="#" title="Edit" data-bs-toggle="modal" data-bs-target="#modalCostEdit">
+                            <i class="bi bi-gear btn-edit-cost" data-btn-edit-cost="{{ id }}"></i>
+                        </a>
+                    </td>
+                </tr>
+            {{/with}}
+        {{/each}}
+    </table>
+{{/if}}
+</div>
+<!-- Modal Cost Summary -->
+<div class="modal" id="modalCostSummary">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cost: {{ lot.Model.dataValues.title }} {{ lot.year }}. Stock No {{ lot.stock_id }} </h4>
+                <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 com-sm-12">
+                        <div class="mb-2">
+                            <label for="auction-bid" class="form-label">Auction bid</label>
+                            <input type="text" id="auction-bid" class="form-control form-control-sm" value="{{ currency costSummary.auction_bid }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="auction-fee" class="form-label">Auction fee</label>
+                            <input type="text" id="auction-fee" class="form-control form-control-sm" 
+                                value="{{ currency costSummary.auction_fee }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="dealer-service" class="form-label">Dealer services</label>
+                            <input type="text" id="dealer-service" class="form-control form-control-sm" value="{{ currency costSummary.dealer_services }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="registration" class="form-label">Registration</label>
+                            <input type="text" id="registration" class="form-control form-control-sm" value="{{ currency costSummary.registration }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="delivery" class="form-label">Delivery</label>
+                            <input type="text" id="delivery" class="form-control form-control-sm" value="{{ currency costSummary.delivery }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="spares" class="form-label">Spares</label>
+                            <input type="text" id="spares" class="form-control form-control-sm" value="{{ currency costSummary.spares }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="repair" class="form-label">Repair</label>
+                            <input type="text" id="repair" class="form-control form-control-sm" value="{{ currency costSummary.repair }}" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6 com-sm-12">
+                        <div class="mb-2">
+                            <label for="painting" class="form-label">Painting</label>
+                            <input type="text" id="painting" class="form-control form-control-sm" value="{{ currency costSummary.painting }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="consumables" class="form-label">Consumables</label>
+                            <input type="text" id="consumables" class="form-control form-control-sm" value="{{ currency costSummary.consumables }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="inspection" class="form-label">Inspection</label>
+                            <input type="text" id="inspection" class="form-control form-control-sm" value="{{ currency costSummary.inspection }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="washing" class="form-label">Washing</label>
+                            <input type="text" id="washing" class="form-control form-control-sm" value="{{ currency costSummary.washing }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="dealer-number-rent" class="form-label">Dealer number rent</label>
+                            <input type="text" id="dealer-number-rent" class="form-control form-control-sm" value="{{ currency costSummary.dealer_number_rent }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="other-costs" class="form-label">Other costs</label>
+                            <input type="text" id="other-costs" class="form-control form-control-sm" value="{{ currency costSummary.other_costs }}" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <label for="total-costs" class="form-label fw-bold">Total costs</label>
+                            <input type="text" id="total-costs" class="form-control form-control-sm fw-bold" value="{{ currency costTotal }}" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Cost Edit -->
+<div class="modal" id="modalCostEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/operations/lot/create" method="POST" id="form-cost-edit">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cost for: {{ lot.Model.dataValues.title }} {{ lot.year }}. Stock No {{ lot.stock_id }} </h5>
+                    <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="date_reg" class="form-label">Date</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="date_reg" name="date_reg" 
+                                class="form-control form-control-sm form-input-required-date" value="{{ currentDate }}" />  
+                            <span class="fs-75 text-muted fst-italic">YYYY-MM-DD</span>   
+                        </div>
+                    </div> 
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="account-title" class="form-label">Account</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="account-title" class="form-control form-control-sm" value="{{ lot.Account.dataValues.title}}" readonly />
+                            <input type="hidden" id="account_id" name="account_id" value="{{ lot.account_id}}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="sub_account_id" class="form-label">Subject</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select form-select-sm" id="sub_account_id" name="sub_account_id">
+                                <option value="" selected>Select...</option>
+                                {{#each subAccounts }}
+                                    <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                {{/each}}
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="operation_type_id" class="form-label small">Operation type</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select form-select-sm" id="operation_type_id" name="operation_type_id">
+                                <option value="" selected>Select...</option>
+                                {{#each operationTypes }}
+                                    <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                {{/each}}
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="amount" class="form-label small">Amount</label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" id="amount" name="amount" 
+                                class="form-control form-control-sm number" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="description" class="form-label small">Description</label>
+                        </div>
+                        <div class="col">
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary" disabled>
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="lot_id" value="{{ lot.id }}" id="hidden-id" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Dates edit -->
+<div class="modal" id="modalDatesEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/lots/date/edit" method="POST" id="form-date-edit">
+                <div class="modal-header">
+                    <h5 class="modal-title">Date edit. Stock No {{ lot.stock_id }} </h5>
+                    <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="date_buy" class="form-label">Date buy</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="date_buy" name="date_buy" 
+                                class="form-control form-control-sm form-input-required-date" value="{{ lot.date_buy }}" />  
+                            <span class="fs-75 text-muted fst-italic">YYYY-MM-DD</span>   
+                        </div>
+                    </div> 
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="date_ready" class="form-label">Date ready</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="date_ready" name="date_ready" 
+                                class="form-control form-control-sm form-input-required-date" value="{{ lot.date_ready }}" />  
+                        </div>
+                    </div> 
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="date_sale" class="form-label">Date sale</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="date_sale" name="date_sale" 
+                                class="form-control form-control-sm form-input-required-date" value="{{ lot.date_sale }}" />  
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="id" value="{{ lot.id }}" id="hidden-id" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Price edit -->
+<div class="modal" id="modalPriceEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/lots/price/edit" method="POST" id="form-price-edit">
+                <div class="modal-header">
+                    <h5 class="modal-title">Set price. Stock No {{ lot.stock_id }} </h5>
+                    <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="target_price" class="form-label">Target price</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="target_price" name="target_price" 
+                                class="form-control form-control-sm number" value="{{ lot.target_price }}" />  
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+                <input type="hidden" name="id" value="{{ lot.id }}" id="hidden-id" />
+            </form>
+        </div>
+    </div>
+</div>
+
+{{{ script }}}

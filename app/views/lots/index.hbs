@@ -1,0 +1,51 @@
+{{#if lots }} 
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th class="col-1">Stock No.</th>
+                    <th class="col-1">Date</th>
+                    <th class="col-1">Account</th>
+                    <th class="col-1">Vehicle style</th>
+                    <th class="col-2">Model</th>
+                    <th class="col-1">Year</th>
+                    <th class="col-1">Vin</th>
+                    <th class="col-1">Status</th>
+                    <th class="col-1">Author</th>
+                    <th class="col-1 text-center">Details</th>
+                    <th class="col"></th>
+                </tr>
+            {{#each lots }}
+                {{#with this.dataValues}}
+                <tr>
+                    <td>{{ stock_id }}</td>
+                    <td>{{ date created_at }}</td>
+                    <td>{{ Account.dataValues.title }}</td>
+                    <td>{{ VehicleStyle.dataValues.title }}</td>
+                    <td>{{ Model.dataValues.title }}</td>
+                    <td>{{ year }}</td>
+                    <td>{{ vin }}</td>
+                    <td>{{ LotStatus.dataValues.title }}</td>
+                    <td>{{ User.dataValues.username }}</td>
+                    <td class="text-center">
+                        <a href="/lots/{{ id }}/details"> 
+                            <i class="bi bi-card-list"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/lots/{{ id }}/edit" class="{{#unless ../../access}} disabled{{/unless}}" title="Edit"> 
+                            <i class="bi bi-gear"></i>
+                        </a>
+                    </td>    
+                </tr>
+                {{/with}}
+            {{/each}}
+            </table>
+        </div>
+    </div>
+{{/if }}
+<div class="d-flex justify-content-start my-3">
+    <a href="/lots/create" class="btn btn-sm btn-primary{{#unless access}} disabled{{/unless}}">
+        <i class="bi bi-plus-square"></i> Add
+    </a>
+</div>

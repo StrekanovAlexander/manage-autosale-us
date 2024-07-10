@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <form action="/lots/create" method="POST">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            Main data
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            Specifications and Description
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="stock_id" class="form-label">Stock No</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" id="stock_id" 
+                                        name="stock_id" value="{{ stockId }}" readonly />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="number_id" class="form-label">Lot number</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" id="number_id" 
+                                        name="number_id" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="account_id" class="form-label">Account</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm form-select-required" id="account_id" name="account_id">
+                                        {{#each accounts }}
+                                            <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="vehicle_style_id" class="form-label small">Vehicle style</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm form-select-required" id="vehicle_style_id" name="vehicle_style_id">
+                                        <option value="">Select...</option>
+                                        {{#each vehicleStyles }}
+                                            <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="brand_id" class="form-label small">Brand</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm form-select-required" id="brand_id" name="brand_id">
+                                        <option value="">Select...</option>
+                                        {{#each brands}}
+                                            <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="model_id" class="form-label small">Model</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="model_id" name="model_id">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="vin" class="form-label small">Vin</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm form-input-text-required" id="vin" 
+                                        name="vin" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="year" class="form-label small">Year</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm form-input-number-required" id="year" 
+                                        name="year" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="status_id" class="form-label small">Status</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="lot_status_id" name="lot_status_id">
+                                    {{#each lotStatuses}}
+                                        <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                    {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            {{#each specifications}}
+                            {{!-- specifications loop --}}
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="specification_{{ this.id }}" class="form-label small">{{ this.title }}</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" 
+                                        id="specification_{{ this.id }}" name="specification_{{ this.id }}">
+                                        <option value="">Select...</option>
+                                        {{#each this.items}}
+                                            <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>   
+                            {{/each}}
+                            {{!-- specifications loop end --}}    
+                            <div class="row">
+                                <div class="col">
+                                    <label for="description" class="form-label small">Description</label>
+                                    <textarea class="form-control form-control-sm" id="description" name="description"></textarea> 
+                                </div> 
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/lots" class="btn btn-sm btn-primary">
+                        <i class="bi bi-arrow-left-square"></i> Cancel
+                    </a>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary" disabled>
+                        <i class="bi bi-save2"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{{ script }}}
