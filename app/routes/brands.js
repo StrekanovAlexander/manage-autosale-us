@@ -1,7 +1,7 @@
-import express from 'express';
-import brandController from '../controllers/BrandController.js';
-import modelController from '../controllers/ModelController.js';
-import auth from '../middleware/auth.js';
+const express = require('express');
+const brandController = require('../controllers/BrandController.js');
+const modelController = require('../controllers/ModelController.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.post('/models/edit', auth, modelController.update);
 
 router.get('/:brand_id/models/json', modelController.jsonByBrand);
 
-export default router;
+module.exports = router;

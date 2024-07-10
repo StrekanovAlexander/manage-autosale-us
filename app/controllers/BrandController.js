@@ -1,9 +1,9 @@
-import { Op } from 'sequelize';
-import Brand from '../models/Brand.js';
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const { Op } = require('sequelize');
+const Brand = require('../models/Brand.js');
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
 
 const all = async (req, res) => {
     const brands = await Brand.findAll({ order: [['title']] });
@@ -93,4 +93,10 @@ const update = async (req, res) => {
     res.redirect('/brands');
 }
 
-export default { all, create, store, edit, update };
+module.exports = { 
+    all, 
+    create, 
+    store, 
+    edit, 
+    update
+};

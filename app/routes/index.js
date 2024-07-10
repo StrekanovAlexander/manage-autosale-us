@@ -1,6 +1,6 @@
 // import accounts from './accounts.js';
 // import api from './api.js';
-// import brands from './brands.js';
+const brands = require('./brands.js');
 const home = require('./home');
 const lots = require('./lots.js');
 const operations = require('./operations.js');
@@ -14,7 +14,7 @@ const reports = require('./reports.js');
 module.exports = { 
     // accounts,
     // api,
-    // brands, 
+    brands, 
     home, 
     lots, 
     operations, 

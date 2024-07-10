@@ -1,9 +1,9 @@
-import Brand from '../models/Brand.js';
-import Model from '../models/Model.js';
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const Brand = require('../models/Brand');
+const Model = require('../models/Model');
+const access = require('../common/access');
+const breadcrumb = require('../common/breadcrumb');
+const scriptPath = require('../common/script-path');
+const { message, setMessage } = require('../common/message');
 
 const all = async (req, res) => {
     const { id }= req.params;
@@ -112,4 +112,11 @@ const jsonByBrand = async (req, res) => {
     res.json(models);
 }
 
-export default { all, create, store, edit, update, jsonByBrand };
+module.exports = { 
+    all, 
+    create, 
+    store, 
+    edit, 
+    update, 
+    jsonByBrand
+}
