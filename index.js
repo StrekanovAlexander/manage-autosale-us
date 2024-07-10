@@ -1,10 +1,16 @@
 require('dotenv').config();
+
 const express = require('express');
-const sequelize = require('./app/db/sequelize');
-const routes = require('./app/routes');
 const hbs = require('express-handlebars');
+const session = require('express-session');
+
 const helpers = require('./app/common/helpers');
+const routes = require('./app/routes');
+const sequelize = require('./app/db/sequelize');
+
 const app = express();
+
+app.use(session({ secret: process.env.JWT_KEY, resave: false, saveUninitialized: true }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -17,7 +23,9 @@ app.set('views', './app/views');
 async function init() { 
   try {
     await sequelize.authenticate();
+
     app.use('/', routes.home);
+
     app.listen(process.env.PORT);
   } catch (e) {
     console.error('Can`t connect to database', e);
