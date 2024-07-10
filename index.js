@@ -31,6 +31,7 @@ async function init() {
     await sequelize.authenticate();
 
     app.use('/', routes.home);
+    app.use('/operations', routes.operations);
 
     app.all('*', (req, res) => { 
       res.status(404).send('404! Page not found'); 

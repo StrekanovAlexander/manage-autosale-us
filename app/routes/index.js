@@ -3,7 +3,7 @@
 // import brands from './brands.js';
 const home = require('./home');
 // import lots from './lots.js';
-// import operations from './operations.js';
+const operations = require('./operations.js');
 // import operationTypes from './operation-types.js';
 // import reports from './reports.js';
 // import specifications from './specifications.js';
@@ -17,7 +17,7 @@ module.exports = {
     // brands, 
     home, 
     // lots, 
-    // operations, 
+    operations, 
     // operationTypes,
     // reports, 
     // specifications, 
