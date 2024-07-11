@@ -1,9 +1,9 @@
-import Account from '../models/Account.js';
-import User from '../models/User.js';
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const Account = require('../models/Account.js');
+const User = require('../models/User.js');
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
 
 Account.belongsTo(User, { foreignKey: 'user_id' });
 
@@ -46,4 +46,8 @@ const update = async (req, res) => {
     res.redirect('/accounts');
 }
 
-export default { all, store, update };
+module.exports = { 
+    all, 
+    store, 
+    update 
+};

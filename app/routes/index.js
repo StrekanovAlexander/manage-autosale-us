@@ -1,10 +1,10 @@
-// import accounts from './accounts.js';
+const accounts = require('./accounts.js');
 // import api from './api.js';
 const brands = require('./brands.js');
 const home = require('./home');
 const lots = require('./lots.js');
 const operations = require('./operations.js');
-// import operationTypes from './operation-types.js';
+const operationTypes = require('./operation-types.js');
 const reports = require('./reports.js');
 // import specifications from './specifications.js';
 // import vehicleStyles from './vehicle-styles.js';
@@ -12,13 +12,13 @@ const reports = require('./reports.js');
 
 
 module.exports = { 
-    // accounts,
+    accounts,
     // api,
     brands, 
     home, 
     lots, 
     operations, 
-    // operationTypes,
+    operationTypes,
     reports, 
     // specifications, 
     // users,

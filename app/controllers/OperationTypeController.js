@@ -1,8 +1,8 @@
-import OperationType from '../models/OperationType.js';
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const OperationType = require('../models/OperationType.js');
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
 
 const all = async (req, res) => {
     const operationTypes = await OperationType.findAll({ order: [['title']] });
@@ -51,7 +51,7 @@ const update = async (req, res) => {
     res.redirect('/operation-types');
 }
 
-export default { 
+module.exports = { 
     all, 
     store, 
     update

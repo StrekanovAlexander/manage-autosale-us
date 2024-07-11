@@ -34,9 +34,11 @@ async function init() {
     await sequelize.authenticate();
 
     app.use('/', routes.home);
+    app.use('/accounts', routes.accounts);
     app.use('/brands', routes.brands);
     app.use('/lots', routes.lots);
     app.use('/operations', routes.operations);
+    app.use('/operation-types', routes.operationTypes);
     app.use('/reports', routes.reports);
 
     app.all('*', (req, res) => { 
