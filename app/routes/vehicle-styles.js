@@ -1,6 +1,6 @@
-import express from 'express';
-import vehicleController from '../controllers/VehicleStyleController.js';
-import auth from '../middleware/auth.js';
+const express = require('express');
+const vehicleController = require('../controllers/VehicleStyleController.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.post('/create', auth, vehicleController.store);
 router.get('/:id/edit', auth, vehicleController.edit);
 router.post('/edit', auth, vehicleController.update);
 
-export default router;
+module.exports = router;

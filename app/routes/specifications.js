@@ -1,7 +1,7 @@
-import express from 'express';
-import specificationController from '../controllers/SpecificationController.js';
-import specificationItemController from '../controllers/SpecificationItemController.js';
-import auth from '../middleware/auth.js';
+const express = require('express');
+const specificationController = require('../controllers/SpecificationController.js');
+const specificationItemController = require('../controllers/SpecificationItemController.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.post('/specification-items/create', auth, specificationItemController.sto
 router.get('/:specification_id/specification-items/:id/edit', auth, specificationItemController.edit);
 router.post('/specification-items/edit', auth, specificationItemController.update);
 
-export default router;
+module.exports = router;
