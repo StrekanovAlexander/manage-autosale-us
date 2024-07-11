@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const hbs = require('express-handlebars');
 const paginate = require('express-paginate');
 const session = require('express-session');
@@ -13,6 +14,8 @@ const rowsLimit = 15;
 const rowsMaxLimit = rowsLimit;
 
 const app = express();
+
+app.use(fileUpload({}));
 
 app.use(paginate.middleware(rowsLimit, rowsMaxLimit));
 

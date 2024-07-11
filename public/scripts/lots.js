@@ -87,8 +87,7 @@
         }
         (async () => {
             try {
-                const res = await fetch(`https://manage-auto-store.glitch.me/brands/${ev.target.value}/models/json`);
-                // const res = await fetch(`http://localhost:3000/brands/${ev.target.value}/models/json`);
+                const res = await fetch(`https://manage.auto-sale.us/brands/${ev.target.value}/models/json`);
                 const data = await res.json();
                 build(selector, data);
             } catch (err) {
