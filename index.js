@@ -35,6 +35,7 @@ async function init() {
 
     app.use('/', routes.home);
     app.use('/accounts', routes.accounts);
+    app.use('/api', routes.api);
     app.use('/brands', routes.brands);
     app.use('/lots', routes.lots);
     app.use('/operations', routes.operations);

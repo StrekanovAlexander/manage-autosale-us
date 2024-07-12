@@ -1,7 +1,7 @@
-import Brand from '../models/Brand.js';
-import Lot from '../models/Lot.js';
-import Model from '../models/Model.js';
-import VehicleStyle from '../models/VehicleStyle.js';
+const Brand = require('../models/Brand.js');
+const Lot = require('../models/Lot.js');
+const Model = require('../models/Model.js');
+const VehicleStyle = require('../models/VehicleStyle.js');
 
 Lot.belongsTo(Model, { foreignKey: 'model_id' });
 Lot.belongsTo(VehicleStyle, { foreignKey: 'vehicle_style_id'});
@@ -29,9 +29,6 @@ const lots = async (req, res) => {
         //     el.dataValues.marginality = utils.marginality(el.dataValues.target_price, el.dataValues.total_cost);
         //     return el;
         // }));
-
-
-
         return { 
             id: el.id,
             stock_id: el.stock_id, 
@@ -49,6 +46,7 @@ const lots = async (req, res) => {
     res.json(lots);
 }
 
-export default {
-    brands, lots
+module.exports = {
+    brands, 
+    lots
 }

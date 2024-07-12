@@ -1,5 +1,5 @@
 const accounts = require('./accounts.js');
-// import api from './api.js';
+const api = require('./api.js');
 const brands = require('./brands.js');
 const home = require('./home');
 const lots = require('./lots.js');
@@ -10,10 +10,9 @@ const specifications = require('./specifications.js');
 const vehicleStyles = require('./vehicle-styles.js');
 const users = require('./users.js');
 
-
 module.exports = { 
     accounts,
-    // api,
+    api,
     brands, 
     home, 
     lots, 
