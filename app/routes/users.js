@@ -1,6 +1,6 @@
-import express from 'express';
-import userController from '../controllers/UserController.js';
-import auth from '../middleware/auth.js';
+const express = require('express');
+const userController = require('../controllers/UserController.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -15,4 +15,4 @@ router.get('/:id/pwd', auth, userController.pwd);
 router.post('/pwd', auth, userController.savePwd);
 
 
-export default router;
+module.exports = router;

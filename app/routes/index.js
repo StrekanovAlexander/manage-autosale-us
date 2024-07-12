@@ -8,7 +8,7 @@ const operationTypes = require('./operation-types.js');
 const reports = require('./reports.js');
 const specifications = require('./specifications.js');
 const vehicleStyles = require('./vehicle-styles.js');
-// import users from './users.js';
+const users = require('./users.js');
 
 
 module.exports = { 
@@ -21,6 +21,6 @@ module.exports = {
     operationTypes,
     reports, 
     specifications, 
-    // users,
+    users,
     vehicleStyles 
 };

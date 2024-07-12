@@ -41,6 +41,7 @@ async function init() {
     app.use('/operation-types', routes.operationTypes);
     app.use('/reports', routes.reports);
     app.use('/specifications', routes.specifications);
+    app.use('/users', routes.users);
     app.use('/vehicle-styles', routes.vehicleStyles);
     app.all('*', (req, res) => { 
       res.status(404).send('404! Page not found'); 

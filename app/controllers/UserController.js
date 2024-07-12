@@ -1,11 +1,11 @@
-import bcrypt from 'bcrypt';
-import { Op } from 'sequelize';
-import Role from '../models/Role.js';
-import User from '../models/User.js';
-import access from '../common/access.js';
-import breadcrumb from '../common/breadcrumb.js';
-import scriptPath from '../common/script-path.js';
-import { message, setMessage } from '../common/message.js';
+const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
+const Role = require('../models/Role.js');
+const User = require('../models/User.js');
+const access = require('../common/access.js');
+const breadcrumb = require('../common/breadcrumb.js');
+const scriptPath = require('../common/script-path.js');
+const { message, setMessage } = require('../common/message.js');
 
 const all = async (req, res) => {
     User.belongsTo(Role, { foreignKey: 'role_id' });
@@ -130,4 +130,12 @@ const savePwd = async (req, res) => {
     res.redirect('/users');
 }
 
-export default { all, create, store, edit, update, pwd, savePwd };
+module.exports = { 
+    all, 
+    create, 
+    store, 
+    edit, 
+    update, 
+    pwd, 
+    savePwd
+}
