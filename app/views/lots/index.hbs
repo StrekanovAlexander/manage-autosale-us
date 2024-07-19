@@ -11,7 +11,7 @@
                     <th class="col-1">Year</th>
                     <th class="col-1">Vin</th>
                     <th class="col-1">Status</th>
-                    <th class="col-1">Author</th>
+                    <th class="col-1 text-center">Activity</th>
                     <th class="col-1 text-center">Details</th>
                     <th class="col"></th>
                 </tr>
@@ -26,7 +26,15 @@
                     <td>{{ year }}</td>
                     <td>{{ vin }}</td>
                     <td>{{ LotStatus.dataValues.title }}</td>
-                    <td>{{ User.dataValues.username }}</td>
+                    <td class="text-center">
+                        {{#if activity }}
+                            <i class="bi bi-check-square"></i>
+                        {{else}}
+                            <span class="text-muted">
+                                <i class="bi bi-square"></i>
+                            </span>
+                        {{/if}}
+                    </td>
                     <td class="text-center">
                         <a href="/lots/{{ id }}/details"> 
                             <i class="bi bi-card-list"></i>

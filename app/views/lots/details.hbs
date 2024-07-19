@@ -67,6 +67,18 @@
             <tr>
                <td colspan="2">{{ lot.description }}</td>
             </tr>
+            <tr>
+               <td class="col fw-bold">Activity</td>
+               <td class="text-center">
+                        {{#if lot.activity }}
+                            <i class="bi bi-check-square"></i>
+                        {{else}}
+                            <span class="text-muted">
+                                <i class="bi bi-square"></i>
+                            </span>
+                        {{/if}}
+                    </td> 
+            </tr>
         </table>
     </div>
 </div>

@@ -34,7 +34,7 @@ Operation.belongsTo(User, { foreignKey: 'user_id' });
 
 const all = async (req, res) => {
     const lots = await Lot.findAll({ 
-        order: [['id', 'DESC']], 
+        order: [['activity', 'DESC'], ['created_at', 'DESC']], 
         include: [ Account, LotStatus, Model, User, VehicleStyle ] 
     });
     
@@ -188,9 +188,10 @@ const update = async (req, res) => {
         }, []);
     const specifications = JSON.stringify(_specifications);
 
-    const { id, account_id, vehicle_style_id, model_id, lot_status_id, vin, year, description } = req.body;
+    const { id, account_id, vehicle_style_id, model_id, lot_status_id, vin, year, description, activity } = req.body;
+    const _activity = activity === 'on' ? true : false;
     const lot = { account_id, vehicle_style_id, model_id, lot_status_id, vin, year, 
-        description, specifications, user_id: req.session.user_id };
+        description, activity: _activity, specifications, user_id: req.session.user_id };
     
     await Lot.update(lot, { where: { id } });
     
