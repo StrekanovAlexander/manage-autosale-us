@@ -96,8 +96,8 @@ const store = async (req, res) => {
         return res.redirect('/lots');
     }
 
-    if (!fs.existsSync(`public/images/vehicles/${ req.body.stock_id }`)) {
-        fs.mkdir(`public/images/vehicles/${ req.body.stock_id }`, (err) => {
+    if (!fs.existsSync(`${ process.env.IMAGES_PATH }/stocks/${ req.body.stock_id }`)) {
+        fs.mkdir(`${ process.env.IMAGES_PATH }/stocks/${ req.body.stock_id }`, (err) => {
             if (err) {
                 setMessage(req, `Lot was not created`, 'danger');
                 return res.redirect(`/lots`); 
@@ -331,7 +331,7 @@ const files = async (req, res) => {
     });
 }
 
-const upload = (req, res) => {
+const upload = async (req, res) => {
     const { id, stock_id } = req.body;
     
     if (!req.files) {
@@ -341,7 +341,14 @@ const upload = (req, res) => {
         
     const fileName = `${ stock_id }-${ Date.now() }.${ (req.files.vehicle.name).split('.').splice(-1) }`;
  
-    req.files.vehicle.mv(`public/images/vehicles/${ stock_id }/${ fileName }`, (err) => {
+    const dir = `${ process.env.IMAGES_PATH }/stocks/${ stock_id }`;
+    const files = fs.readdirSync(dir);
+    
+    if (!files.length) {
+        await Lot.update({ image: fileName }, { where: { id } });
+    }
+
+    req.files.vehicle.mv(`${ process.env.IMAGES_PATH }/stocks/${ stock_id }/${ fileName }`, (err) => {
         if (err) {
             setMessage(req, `File was not uploaded`, 'danger');
             return res.redirect(`/lots/${ id }/files`); 

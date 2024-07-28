@@ -20,6 +20,7 @@ const Lot = sequelize.define('Lot', {
     },
     specifications: DataTypes.TEXT,
     description: DataTypes.TEXT,
+    image: DataTypes.STRING,
     activity: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
