@@ -62,6 +62,9 @@ const create = async (req, res) => {
     const lotStatuses = await LotStatus.findAll({ order: [['id', 'DESC']] });
     const models = await Model.findAll({ order: [['title']], where: { activity: true } });
     const vehicleStyles = await VehicleStyle.findAll({ order: [['title']] });
+    const drivetrains = await Drivetrain.findAll({ order: [['title']] });
+    const fuelTypes = await FuelType.findAll();
+    const colors = await Color.findAll({ order: [['title']] });
 
     const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
     const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
@@ -84,6 +87,9 @@ const create = async (req, res) => {
         lotStatuses,
         models,
         vehicleStyles,
+        drivetrains,
+        fuelTypes,
+        colors,
         specifications,
         script: scriptPath('lots.js'),
         msg: message(req),
@@ -119,11 +125,16 @@ const store = async (req, res) => {
         }, []);
     const specifications = JSON.stringify(_specifications);
 
-    const { stock_id, number_id, account_id, vehicle_style_id, model_id, lot_status_id, vin, year, description } = req.body;
-    await Lot.create({ stock_id, number_id, account_id, vehicle_style_id, model_id, lot_status_id, 
-        vin, year, description, specifications, user_id: req.session.user_id });
+    const { stock_id, activity } = req.body;
+    
+    let lot = { ...req.body, 
+        specifications, 
+        activity: activity === 'on' ? true : false,
+        user_id: req.session.user_id
+    };
+    await Lot.create(lot);
 
-    const lot = await Lot.findOne({ where: { stock_id }});   
+    lot = await Lot.findOne({ where: { stock_id }});   
     
     setMessage(req, `Lot was created`, 'success');
     return res.redirect(`/lots/${ lot.id }/details`); 
