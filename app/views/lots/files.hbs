@@ -12,8 +12,8 @@
 {{#if files}}
 <div class="row mt-4">
     {{#each files }}
-        <div class="col-2">
-            <img src="/images/vehicles/{{ ../lot.stock_id}}/{{ this }}" class="img-item" 
+        <div class="col-2 mb-2">
+            <img src="{{ ../imagesURL }}/{{ ../lot.stock_id }}/{{ this }}" class="img-item" 
                 data-bs-toggle="modal" data-bs-target="#modal-img" />
         </div>
     {{/each }}
