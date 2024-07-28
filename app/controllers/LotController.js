@@ -14,6 +14,9 @@ const Operation = require('../models/Operation.js');
 
 const User = require('../models/User.js');
 const VehicleStyle = require('../models/VehicleStyle.js');
+const Drivetrain = require('../models/Drivetrain.js');
+const FuelType = require('../models/FuelType.js');
+const Color = require('../models/Color.js');
 
 const access = require('../common/access.js');
 const breadcrumb = require('../common/breadcrumb.js');
@@ -138,6 +141,9 @@ const edit = async (req, res) => {
     const lotStatuses = await LotStatus.findAll({ order: [['id', 'DESC']] });
     const models = await Model.findAll({ order: [['title']], where: { activity: true } });
     const vehicleStyles = await VehicleStyle.findAll({ order: [['title']] });
+    const drivetrains = await Drivetrain.findAll({ order: [['title']] });
+    const fuelTypes = await FuelType.findAll();
+    const colors = await Color.findAll({ order: [['title']] });
     const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
     const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
     const _specifications = JSON.parse(lot.specifications);
@@ -160,6 +166,9 @@ const edit = async (req, res) => {
         brands,
         models,
         vehicleStyles,
+        drivetrains,
+        fuelTypes,
+        colors,
         lotStatuses,
         specifications,
         script: scriptPath('lots.js'),
@@ -188,10 +197,8 @@ const update = async (req, res) => {
         }, []);
     const specifications = JSON.stringify(_specifications);
 
-    const { id, account_id, vehicle_style_id, model_id, lot_status_id, vin, year, description, activity } = req.body;
-    const _activity = activity === 'on' ? true : false;
-    const lot = { account_id, vehicle_style_id, model_id, lot_status_id, vin, year, 
-        description, activity: _activity, specifications, user_id: req.session.user_id };
+    const { id, activity } = req.body;
+    const lot = { ...req.body, specifications, activity: activity === 'on' ? true : false};
     
     await Lot.update(lot, { where: { id } });
     

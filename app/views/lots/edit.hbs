@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="row mb-3">
                                 <div class="col-4">
                                     <label for="stock_id" class="form-label">Stock No</label>
@@ -22,6 +22,15 @@
                                 <div class="col">
                                     <input type="text" class="form-control form-control-sm" id="stock_id" 
                                         name="stock_id" value="{{ lot.stock_id }}" readonly />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="number_id" class="form-label">Lot number</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" id="number_id" 
+                                        name="number_id" value="{{ lot.number_id }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -34,21 +43,6 @@
                                         {{#each accounts }}
                                             <option value="{{ this.dataValues.id }}" 
                                                 {{#if (equals this.dataValues.id ../lot.account_id)}} selected{{/if}} 
-                                            >{{ this.dataValues.title }}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-4">
-                                    <label for="vehicle_style_id" class="form-label">Vehicle style</label>
-                                </div>
-                                <div class="col">
-                                    <select class="form-select form-select-sm form-select-required" id="vehicle_style_id" name="vehicle_style_id">
-                                        <option value="">Select...</option>
-                                        {{#each vehicleStyles }}
-                                            <option value="{{ this.dataValues.id }}" 
-                                                {{#if (equals this.dataValues.id ../lot.vehicle_style_id)}} selected{{/if}} 
                                             >{{ this.dataValues.title }}</option>
                                         {{/each}}
                                     </select>
@@ -124,7 +118,84 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="vehicle_style_id" class="form-label">Vehicle style</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm form-select-required" id="vehicle_style_id" name="vehicle_style_id">
+                                        <option value="">Select...</option>
+                                        {{#each vehicleStyles }}
+                                            <option value="{{ this.dataValues.id }}" 
+                                                {{#if (equals this.dataValues.id ../lot.vehicle_style_id)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>    
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="drivetrain" class="form-label">Drivetrain</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="drivetrain" name="drivetrain">
+                                        <option value="">Select...</option>
+                                        {{#each drivetrains }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.drivetrain)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="fuel_type" class="form-label">Fuel type</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="fuel_type" name="fuel_type">
+                                        <option value="">Select...</option>
+                                        {{#each fuelTypes }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.fuel_type)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="exterior_color" class="form-label">Exterior color</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="exterior_color" name="exterior_color">
+                                        <option value="">Select...</option>
+                                        {{#each colors }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.exterior_color)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="interior_color" class="form-label">Interior color</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="interior_color" name="interior_color">
+                                        <option value="">Select...</option>
+                                        {{#each colors }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.interior_color)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
                             {{#each specifications}}
                             {{!-- specifications loop --}}
                             <div class="row mb-3">

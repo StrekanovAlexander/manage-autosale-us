@@ -1,12 +1,12 @@
-<div class="row mb-3">
-    <div class="col-md-3">
-        <table class="table table-sm table-bordered">
+<div class="row mb-2">
+    <div class="col-md-4">
+        <table class="table table-sm table-bordered table-striped">
             <tr>
                <td class="col fw-bold">Stock No</td>
                <td class="col">{{ lot.stock_id }}</td> 
             </tr>
             <tr>
-               <td class="col fw-bold">Lot Number</td>
+               <td class="col fw-bold">Lot No</td>
                <td class="col">{{ lot.number_id }}</td> 
             </tr>
              <tr>
@@ -14,14 +14,6 @@
                <td class="col">{{ lot.Account.dataValues.title }}</td> 
             </tr>
             <tr>
-               <td class="col fw-bold">Vehicle style</td>
-               <td class="col">{{ lot.VehicleStyle.dataValues.title }}</td> 
-            </tr>
-        </table>
-    </div>
-    <div class="col-md-3">
-        <table class="table table-sm table-bordered">
-             <tr>
                <td class="col fw-bold">Model</td>
                <td class="col">{{ lot.Model.dataValues.title }}</td> 
             </tr>
@@ -37,10 +29,44 @@
                <td class="col fw-bold">Status</td>
                <td class="col">{{ lot.LotStatus.dataValues.title }}</td> 
             </tr>
+            <tr>
+               <td class="col fw-bold">Activity</td>
+               <td>
+                    {{#if lot.activity }}
+                        <i class="bi bi-check-square"></i>
+                    {{else}}
+                        <span class="text-muted"><i class="bi bi-square"></i></span>
+                    {{/if}}
+                </td> 
+            </tr>
         </table>
     </div>
-    <div class="col-md-3">
-        <table class="table table-sm table-bordered">
+    <div class="col-md-4">
+        <table class="table table-sm table-bordered table-striped">
+            <tr>
+               <td class="col fw-bold">Vehicle style</td>
+               <td class="col">{{ lot.VehicleStyle.dataValues.title }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Drivetrain</td>
+               <td class="col">{{ lot.drivetrain }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Fuel type</td>
+               <td class="col">{{ lot.fuel_type }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Exterior color</td>
+               <td class="col">{{ lot.exterior_color }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Interior color</td>
+               <td class="col">{{ lot.interior_color }}</td> 
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <table class="table table-sm table-bordered table-striped">
              <tr>
                <td class="col fw-bold">Date buy</td>
                <td class="col">{{ lot.date_buy }}</td> 
@@ -59,29 +85,12 @@
             </tr>
         </table>
     </div>
-    <div class="col-md-3">
-        <table class="table table-sm table-bordered">
-            <tr>
-               <td colspan="2" class="fw-bold">Description</td>
-            </tr>
-            <tr>
-               <td colspan="2">{{ lot.description }}</td>
-            </tr>
-            <tr>
-               <td class="col fw-bold">Activity</td>
-               <td class="text-center">
-                        {{#if lot.activity }}
-                            <i class="bi bi-check-square"></i>
-                        {{else}}
-                            <span class="text-muted">
-                                <i class="bi bi-square"></i>
-                            </span>
-                        {{/if}}
-                    </td> 
-            </tr>
-        </table>
-    </div>
 </div>
+{{#if lot.description }}
+    <p class="border border-primary rounded py-1 px-2">
+        <span class="fw-bold">Description:</span> {{ lot.description }}
+    </p>
+{{/if}}
 <p>
     <a href="#" id="btn-specifications">Show specifications</a>
 </p>
@@ -109,17 +118,17 @@
         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCostSummary">
             <i class="bi bi-card-list"></i> Cost summary
         </button>
-        <a href="/lots/{{ lot.id }}/files" class="btn btn-primary btn-sm" title="Edit"> 
-            <i class="bi bi-card-image"></i> Files
-        </a>
-    </div>
-    <div class="col text-end">
         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDatesEdit">
             <i class="bi bi-calendar-check"></i> Edit dates
         </button>
         <button type="button" id="btn-edit-price" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalPriceEdit">
             <i class="bi bi-currency-dollar"></i> Set price
         </button>
+    </div>
+    <div class="col text-end">
+        <a href="/lots/{{ lot.id }}/files" class="btn btn-primary btn-sm" title="Edit"> 
+            <i class="bi bi-card-image"></i> Files
+        </a>
         <a href="/lots/{{ lot.id }}/edit" class="btn btn-primary btn-sm" title="Edit"> 
             <i class="bi bi-gear"></i> Edit lot
         </a>
