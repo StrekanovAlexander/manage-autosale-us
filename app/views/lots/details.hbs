@@ -14,6 +14,10 @@
                <td class="col">{{ lot.Account.dataValues.title }}</td> 
             </tr>
             <tr>
+               <td class="col fw-bold">Make</td>
+               <td class="col">{{ lot.make }}</td> 
+            </tr>
+            <tr>
                <td class="col fw-bold">Model</td>
                <td class="col">{{ lot.Model.dataValues.title }}</td> 
             </tr>
@@ -22,8 +26,16 @@
                <td class="col">{{ lot.vin }}</td> 
             </tr>
             <tr>
+               <td class="col fw-bold">Condition</td>
+               <td class="col">{{ lot.state }}</td> 
+            </tr>
+            <tr>
                <td class="col fw-bold">Year</td>
                <td class="col">{{ lot.year }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Mileage</td>
+               <td class="col">{{ lot.mileage }}</td> 
             </tr>
             <tr>
                <td class="col fw-bold">Status</td>
@@ -52,8 +64,20 @@
                <td class="col">{{ lot.drivetrain }}</td> 
             </tr>
             <tr>
+               <td class="col fw-bold">Transmission</td>
+               <td class="col">{{ lot.transmission }}</td> 
+            </tr>
+            <tr>
                <td class="col fw-bold">Fuel type</td>
                <td class="col">{{ lot.fuel_type }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">City gas mileage</td>
+               <td class="col">{{ lot.mpg_city }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Highway gas mileage</td>
+               <td class="col">{{ lot.mpg_highway }}</td> 
             </tr>
             <tr>
                <td class="col fw-bold">Exterior color</td>
@@ -62,6 +86,10 @@
             <tr>
                <td class="col fw-bold">Interior color</td>
                <td class="col">{{ lot.interior_color }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Doors</td>
+               <td class="col">{{ lot.doors }}</td> 
             </tr>
         </table>
     </div>
@@ -97,7 +125,7 @@
 <div class="row hidden" id="specifications">
     <ul class="col-4">
         {{#if specifications}}
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered table-striped">
             {{#each specifications }}
             <tr>
                 <td class="col-6 fw-bold">{{ this.title }}</td>
@@ -137,7 +165,7 @@
 
 <h2 class="mt-4">Costs</h2>
 {{#if operations}}
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm table-bordered table-striped">
         <thead>
             <tr>
                 <th class="col-1 text-end">ID</th>

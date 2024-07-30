@@ -88,11 +88,34 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for="state" class="form-label">Condition</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="state" name="state">
+                                        {{#each states }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.state)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="year" class="form-label">Year</label>
                                 </div>
                                 <div class="col">
                                     <input type="text" class="form-control form-control-sm form-input-number-required" id="year" 
                                         name="year" value="{{ lot.year }}" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="mileage" class="form-label">Mileage</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-control-sm" id="mileage" 
+                                        name="mileage" value="{{ lot.mileage }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -151,6 +174,21 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for="transmission" class="form-label">Transmission</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="transmission" name="transmission">
+                                        <option value="">Select...</option>
+                                        {{#each transmissions }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.transmission)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="fuel_type" class="form-label">Fuel type</label>
                                 </div>
                                 <div class="col">
@@ -162,6 +200,24 @@
                                             >{{ this.dataValues.title }}</option>
                                         {{/each}}
                                     </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-5">
+                                    <label for="mpg_city" class="form-label">City gas mileage</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-control-sm" id="mpg_city" 
+                                        name="mpg_city" value="{{ lot.mpg_city }}" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-5">
+                                    <label for="mpg_highway" class="form-label">Highway gas mileage</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-control-sm" id="mpg_highway" 
+                                        name="mpg_highway" value="{{ lot.mpg_highway }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -189,6 +245,21 @@
                                         {{#each colors }}
                                             <option value="{{ this.dataValues.title }}" 
                                                 {{#if (equals this.dataValues.title ../lot.interior_color)}} selected{{/if}} 
+                                            >{{ this.dataValues.title }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="doors" class="form-label">Doors</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm" id="doors" name="doors">
+                                        <option value="">Select...</option>
+                                        {{#each doors }}
+                                            <option value="{{ this.dataValues.title }}" 
+                                                {{#if (equals this.dataValues.title ../lot.doors)}} selected{{/if}} 
                                             >{{ this.dataValues.title }}</option>
                                         {{/each}}
                                     </select>

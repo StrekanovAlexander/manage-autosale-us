@@ -6,6 +6,9 @@ const Lot = require('../models/Lot.js');
 const LotStatus = require('../models/LotStatus.js');
 const Brand = require('../models/Brand.js');
 const Model = require('../models/Model.js');
+const State = require('../models/State.js');
+const Door = require('../models/Door.js');
+const Transmission = require('../models/Transmission.js');
 
 const Specification = require('../models/Specification.js');
 const SpecificationItem = require('../models/SpecificationItem.js');
@@ -65,7 +68,9 @@ const create = async (req, res) => {
     const drivetrains = await Drivetrain.findAll({ order: [['title']] });
     const fuelTypes = await FuelType.findAll();
     const colors = await Color.findAll({ order: [['title']] });
-
+    const doors = await Door.findAll();
+    const states = await State.findAll();
+    const transmissions = await Transmission.findAll();
     const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
     const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
     const specifications = specificationList.reduce((acc, el) => {
@@ -90,6 +95,9 @@ const create = async (req, res) => {
         drivetrains,
         fuelTypes,
         colors,
+        doors,
+        states,
+        transmissions,
         specifications,
         script: scriptPath('lots.js'),
         msg: message(req),
@@ -125,15 +133,19 @@ const store = async (req, res) => {
         }, []);
     const specifications = JSON.stringify(_specifications);
 
-    const { stock_id, activity } = req.body;
-    
+    const { stock_id, brand_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    const brand = await Brand.findByPk(brand_id);
     let lot = { ...req.body, 
+        make: brand.title,
         specifications, 
+        mileage: mileage || null,
+        mpg_city: mpg_city || null,
+        mpg_highway: mpg_highway || null,
         activity: activity === 'on' ? true : false,
         user_id: req.session.user_id
     };
-    await Lot.create(lot);
 
+    await Lot.create(lot);
     lot = await Lot.findOne({ where: { stock_id }});   
     
     setMessage(req, `Lot was created`, 'success');
@@ -155,6 +167,9 @@ const edit = async (req, res) => {
     const drivetrains = await Drivetrain.findAll({ order: [['title']] });
     const fuelTypes = await FuelType.findAll();
     const colors = await Color.findAll({ order: [['title']] });
+    const doors = await Door.findAll();
+    const states = await State.findAll();
+    const transmissions = await Transmission.findAll();
     const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
     const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
     const _specifications = JSON.parse(lot.specifications);
@@ -180,6 +195,9 @@ const edit = async (req, res) => {
         drivetrains,
         fuelTypes,
         colors,
+        doors,
+        states,
+        transmissions,
         lotStatuses,
         specifications,
         script: scriptPath('lots.js'),
@@ -208,8 +226,16 @@ const update = async (req, res) => {
         }, []);
     const specifications = JSON.stringify(_specifications);
 
-    const { id, activity } = req.body;
-    const lot = { ...req.body, specifications, activity: activity === 'on' ? true : false};
+    const { id, brand_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    const brand = await Brand.findByPk(brand_id);
+    const lot = { ...req.body, 
+        make: brand.title,
+        specifications, 
+        mileage: mileage || null,
+        mpg_city: mpg_city || null,
+        mpg_highway: mpg_highway || null,
+        activity: activity === 'on' ? true : false
+    };
     
     await Lot.update(lot, { where: { id } });
     
