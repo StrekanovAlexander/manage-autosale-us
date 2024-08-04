@@ -38,7 +38,6 @@ const Lot = sequelize.define('Lot', {
         type: DataTypes.DECIMAL(10, 2),
         defaultValue: 0
     },
-    specifications: DataTypes.TEXT,
     description: DataTypes.TEXT,
     image: DataTypes.STRING,
     activity: {

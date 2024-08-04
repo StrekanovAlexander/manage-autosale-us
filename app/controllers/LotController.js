@@ -10,8 +10,6 @@ const State = require('../models/State.js');
 const Door = require('../models/Door.js');
 const Transmission = require('../models/Transmission.js');
 
-const Specification = require('../models/Specification.js');
-const SpecificationItem = require('../models/SpecificationItem.js');
 const OperationType = require('../models/OperationType.js');
 const Operation = require('../models/Operation.js');
 
@@ -71,16 +69,6 @@ const create = async (req, res) => {
     const doors = await Door.findAll();
     const states = await State.findAll();
     const transmissions = await Transmission.findAll();
-    const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
-    const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
-    const specifications = specificationList.reduce((acc, el) => {
-        const items = specificationItemLists.filter(item => item.specification_id === el.id);
-        if (items.length) {
-            const specification = { id: el.id, title: el.title, items};  
-            acc.push(specification);  
-        }
-        return acc;
-    }, []); 
     const maxId = await Lot.max('id');
     const stockId = maxId ? maxId + offset : offset; 
     
@@ -98,7 +86,6 @@ const create = async (req, res) => {
         doors,
         states,
         transmissions,
-        specifications,
         script: scriptPath('lots.js'),
         msg: message(req),
         breadcrumb: breadcrumb.build([
@@ -170,20 +157,6 @@ const edit = async (req, res) => {
     const doors = await Door.findAll();
     const states = await State.findAll();
     const transmissions = await Transmission.findAll();
-    const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
-    const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
-    const _specifications = JSON.parse(lot.specifications);
-
-    const specifications = specificationList.reduce((acc, el) => {
-        const items = specificationItemLists.filter(item => item.specification_id === el.id);
-        if (items.length) {
-            const _selected = _specifications.filter(s => Number(s.specification_id) === el.id);
-            const selected = _selected.length ? Number(_selected[0].specification_item_id) : false; 
-            const specification = { id: el.id, title: el.title, items, selected };  
-            acc.push(specification);  
-        }
-        return acc;
-    }, []); 
 
     res.render('lots/edit', {
         title: `Lot editing`,
@@ -199,7 +172,6 @@ const edit = async (req, res) => {
         states,
         transmissions,
         lotStatuses,
-        specifications,
         script: scriptPath('lots.js'),
         msg: message(req),
         breadcrumb: breadcrumb.build([
@@ -270,13 +242,11 @@ const details = async (req, res) => {
 
     const subAccounts = await Account.findAll({ order: [['title']], where: { activity: true, user_id: { [Op.ne]: null } } } );
 
-    const specifications = lot.specifications ? await buildSpecifications(lot.specifications) : [];
     const operationTypes = await OperationType.findAll({ order: [['title']], where: {activity: true, is_car_cost: true}});
 
     res.render('lots/details', {
         title: `Lot details`,
         lot: lot.dataValues,
-        specifications,
         operationTypes,
         operations,
         subAccounts,
@@ -289,26 +259,6 @@ const details = async (req, res) => {
             breadcrumb.make('#', `Stock No: ${ lot.stock_id }`),
         ])
     });
-}
-
-const buildSpecifications = async (specifications) => {
-    const data = JSON.parse(specifications);
-    const specificationList = await Specification.findAll({ order: [['title']], where: { activity: true } });
-    const specificationItemLists = await SpecificationItem.findAll({ order: [['title']], where: { activity: true } });
-
-    return specificationList.reduce((acc, el) => {
-        const items = specificationItemLists.filter(item => item.specification_id === el.id);
-        if (items.length) {
-            const _selected = data.filter(s => Number(s.specification_id) === el.id);
-            const selected = _selected.length ? Number(_selected[0].specification_item_id) : false; 
-            if (selected) {
-                const item = items.filter(item => item.id === selected)[0];
-                const specification = { title: el.title, itemTitle: item.title };  
-                acc.push(specification);  
-            }
-        }
-        return acc;
-    }, []);
 }
 
 const editDate = async (req, res) => {
