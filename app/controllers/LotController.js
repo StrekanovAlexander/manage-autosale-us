@@ -109,22 +109,15 @@ const store = async (req, res) => {
         });
     } 
 
-    const entries = Object.entries(req.body);
-    const _specifications = entries
-        .filter(el => el[0].includes('specification_') && el[1].length > 0)
-        .reduce((acc, el) => {
-            const specification_id = el[0].split('_')[1];
-            const specification_item_id = el[1];
-            acc.push({ specification_id, specification_item_id });
-            return acc;
-        }, []);
-    const specifications = JSON.stringify(_specifications);
-
-    const { stock_id, brand_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    
+    const { stock_id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity } = req.body;
     const brand = await Brand.findByPk(brand_id);
+    const model = await Model.findByPk(model_id);
+    const body_style = await VehicleStyle.findByPk(vehicle_style_id);
     let lot = { ...req.body, 
         make: brand.title,
-        specifications, 
+        model: model ? model.title : '',
+        body_style: body_style.title,
         mileage: mileage || null,
         mpg_city: mpg_city || null,
         mpg_highway: mpg_highway || null,
@@ -187,22 +180,16 @@ const update = async (req, res) => {
         return res.redirect('/Lots');
     }
     
-    const entries = Object.entries(req.body);
-    const _specifications = entries
-        .filter(el => el[0].includes('specification_') && el[1].length > 0)
-        .reduce((acc, el) => {
-            const specification_id = el[0].split('_')[1];
-            const specification_item_id = el[1];
-            acc.push({ specification_id, specification_item_id });
-            return acc;
-        }, []);
-    const specifications = JSON.stringify(_specifications);
-
-    const { id, brand_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    const { id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    
     const brand = await Brand.findByPk(brand_id);
+    const model = await Model.findByPk(model_id);
+    const body_style= await VehicleStyle.findByPk(vehicle_style_id);
+    
     const lot = { ...req.body, 
         make: brand.title,
-        specifications, 
+        model: model ? model.title : '',
+        body_style: body_style.title, 
         mileage: mileage || null,
         mpg_city: mpg_city || null,
         mpg_highway: mpg_highway || null,
@@ -241,7 +228,6 @@ const details = async (req, res) => {
     ] });
 
     const subAccounts = await Account.findAll({ order: [['title']], where: { activity: true, user_id: { [Op.ne]: null } } } );
-
     const operationTypes = await OperationType.findAll({ order: [['title']], where: {activity: true, is_car_cost: true}});
 
     res.render('lots/details', {
