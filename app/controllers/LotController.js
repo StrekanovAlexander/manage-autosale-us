@@ -36,6 +36,8 @@ Lot.belongsTo(User, { foreignKey: 'user_id'});
 Operation.belongsTo(OperationType, { foreignKey: 'operation_type_id' });
 Operation.belongsTo(User, { foreignKey: 'user_id' });
 
+const boolValue = (value) => value === 'on' ? true : false;
+
 const all = async (req, res) => {
     const lots = await Lot.findAll({ 
         order: [['activity', 'DESC'], ['created_at', 'DESC']], 
@@ -108,9 +110,11 @@ const store = async (req, res) => {
             } 
         });
     } 
-
     
-    const { stock_id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity } = req.body;
+    const { stock_id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity,
+        abs_brakes, backup_camera, blind_spot_monitoring, curtain_airbags, driver_airbag,
+        front_side_airbags, parking_sensors, passenger_airbag, alloy_wheels, bluetooth,
+        heated_seats, leather_seats, navigation_system, sunroof_moonroof, technology_package } = req.body;
     const brand = await Brand.findByPk(brand_id);
     const model = await Model.findByPk(model_id);
     const body_style = await VehicleStyle.findByPk(vehicle_style_id);
@@ -121,7 +125,22 @@ const store = async (req, res) => {
         mileage: mileage || null,
         mpg_city: mpg_city || null,
         mpg_highway: mpg_highway || null,
-        activity: activity === 'on' ? true : false,
+        abs_brakes: boolValue(abs_brakes),
+        backup_camera: boolValue(backup_camera),
+        blind_spot_monitoring: boolValue(blind_spot_monitoring),
+        curtain_airbags: boolValue(curtain_airbags),
+        driver_airbag: boolValue(driver_airbag),
+        front_side_airbags: boolValue(front_side_airbags),
+        parking_sensors: boolValue(parking_sensors),
+        passenger_airbag: boolValue(passenger_airbag),
+        alloy_wheels: boolValue(alloy_wheels),
+        bluetooth: boolValue(bluetooth),
+        heated_seats: boolValue(heated_seats),
+        leather_seats: boolValue(leather_seats),
+        navigation_system: boolValue(navigation_system),
+        sunroof_moonroof: boolValue(sunroof_moonroof),
+        technology_package: boolValue(technology_package),
+        activity: boolValue(activity),
         user_id: req.session.user_id
     };
 
@@ -180,8 +199,12 @@ const update = async (req, res) => {
         return res.redirect('/Lots');
     }
     
-    const { id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity } = req.body;
-    
+    const { id, brand_id, model_id, vehicle_style_id, mileage, mpg_city, mpg_highway, activity,
+        abs_brakes, backup_camera, blind_spot_monitoring, curtain_airbags, driver_airbag,
+        front_side_airbags, parking_sensors, passenger_airbag, alloy_wheels, bluetooth,
+        heated_seats, leather_seats, navigation_system, sunroof_moonroof,
+        technology_package } = req.body;
+ 
     const brand = await Brand.findByPk(brand_id);
     const model = await Model.findByPk(model_id);
     const body_style= await VehicleStyle.findByPk(vehicle_style_id);
@@ -193,7 +216,22 @@ const update = async (req, res) => {
         mileage: mileage || null,
         mpg_city: mpg_city || null,
         mpg_highway: mpg_highway || null,
-        activity: activity === 'on' ? true : false
+        abs_brakes: boolValue(abs_brakes),
+        backup_camera: boolValue(backup_camera),
+        blind_spot_monitoring: boolValue(blind_spot_monitoring),
+        curtain_airbags: boolValue(curtain_airbags),
+        driver_airbag: boolValue(driver_airbag),
+        front_side_airbags: boolValue(front_side_airbags),
+        parking_sensors: boolValue(parking_sensors),
+        passenger_airbag: boolValue(passenger_airbag),
+        alloy_wheels: boolValue(alloy_wheels),
+        bluetooth: boolValue(bluetooth),
+        heated_seats: boolValue(heated_seats),
+        leather_seats: boolValue(leather_seats),
+        navigation_system: boolValue(navigation_system),
+        sunroof_moonroof: boolValue(sunroof_moonroof),
+        technology_package: boolValue(technology_package),
+        activity: boolValue(activity)
     };
     
     await Lot.update(lot, { where: { id } });

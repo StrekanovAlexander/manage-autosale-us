@@ -52,6 +52,24 @@
                 </td> 
             </tr>
         </table>
+        <table class="table table-sm table-bordered table-striped">
+             <tr>
+               <td class="col fw-bold">Date buy</td>
+               <td class="col">{{ lot.date_buy }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Date ready</td>
+               <td class="col">{{ lot.date_ready }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Date sale</td>
+               <td class="col">{{ lot.date_sale }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Target price</td>
+               <td class="col">{{ currency lot.target_price }}</td> 
+            </tr>
+        </table>
     </div>
     <div class="col-md-4">
         <table class="table table-sm table-bordered table-striped">
@@ -66,6 +84,14 @@
             <tr>
                <td class="col fw-bold">Transmission</td>
                <td class="col">{{ lot.transmission }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Engine</td>
+               <td class="col">{{ lot.engine }}</td> 
+            </tr>
+            <tr>
+               <td class="col fw-bold">Horsepower</td>
+               <td class="col">{{ lot.horsepower }}</td> 
             </tr>
             <tr>
                <td class="col fw-bold">Fuel type</td>
@@ -95,21 +121,142 @@
     </div>
     <div class="col-md-4">
         <table class="table table-sm table-bordered table-striped">
-             <tr>
-               <td class="col fw-bold">Date buy</td>
-               <td class="col">{{ lot.date_buy }}</td> 
+            <tr>
+               <td class="col fw-bold">ABS brakes</td>
+               <td class="col">
+                {{#if lot.abs_brakes }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Backup camera</td>
+               <td class="col">
+                {{#if lot.backup_camera }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
             </tr>
             <tr>
-               <td class="col fw-bold">Date ready</td>
-               <td class="col">{{ lot.date_ready }}</td> 
+               <td class="col fw-bold">Blind spot monitoring</td>
+               <td class="col">
+                {{#if lot.blind_spot_monitoring }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Curtain airbags</td>
+               <td class="col">
+                {{#if lot.curtain_airbags }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
             </tr>
             <tr>
-               <td class="col fw-bold">Date sale</td>
-               <td class="col">{{ lot.date_sale }}</td> 
+               <td class="col fw-bold">Driver airbag</td>
+               <td class="col">
+                {{#if lot.driver_airbag }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Front side airbags</td>
+               <td class="col">
+                {{#if lot.front_side_airbags }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
             </tr>
             <tr>
-               <td class="col fw-bold">Target price</td>
-               <td class="col">{{ currency lot.target_price }}</td> 
+               <td class="col fw-bold">Parking sensors</td>
+               <td class="col">
+                {{#if lot.parking_sensors }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Passenger airbag</td>
+               <td class="col">
+                {{#if lot.passenger_airbag }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
+            </tr>
+            <tr>
+               <td class="col fw-bold">Alloy wheels</td>
+               <td class="col">
+                {{#if lot.alloy_wheels }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Bluetooth</td>
+               <td class="col">
+                {{#if lot.bluetooth }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
+            </tr>
+            <tr>
+               <td class="col fw-bold">Heated seats</td>
+               <td class="col">
+                {{#if lot.heated_seats }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Leather seats</td>
+               <td class="col">
+                {{#if lot.leather_seats }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
+            </tr>
+            <tr>
+               <td class="col fw-bold">Navigation system</td>
+               <td class="col">
+                {{#if lot.navigation_system }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td class="col fw-bold">Sunroof moonroof</td>
+               <td class="col">
+                {{#if lot.sunroof_moonroof }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>  
+            </tr>
+            <tr>
+               <td class="col fw-bold">Technology package</td>
+               <td class="col">
+                {{#if lot.technology_package }}
+                    <i class="bi bi-check-square"></i>
+                {{else}}
+                    <span class="text-muted"><i class="bi bi-square"></i></span>
+                {{/if}}
+               </td>
+               <td colspan="2"></td>
             </tr>
         </table>
     </div>

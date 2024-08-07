@@ -175,6 +175,24 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for="engine" class="form-label">Engine</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" id="engine" 
+                                        name="engine" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="horsepower" class="form-label">Horsepower</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" id="horsepower" 
+                                        name="horsepower" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="fuel_type" class="form-label">Fuel type</label>
                                 </div>
                                 <div class="col">
@@ -251,24 +269,82 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            {{#each specifications}}
-                            {{!-- specifications loop --}}
                             <div class="row mb-3">
-                                <div class="col-4">
-                                    <label for="specification_{{ this.id }}" class="form-label small">{{ this.title }}</label>
+                                <div class="col-6">
+                                    <label for="abs_brakes" class="form-label small">ABS brakes</label>
+                                    <input class="form-check-input" type="checkbox" name="abs_brakes" id="abs_brakes" />
                                 </div>
-                                <div class="col">
-                                    <select class="form-select form-select-sm" 
-                                        id="specification_{{ this.id }}" name="specification_{{ this.id }}">
-                                        <option value="">Select...</option>
-                                        {{#each this.items}}
-                                            <option value="{{ this.dataValues.id }}">{{ this.dataValues.title }}</option>
-                                        {{/each}}
-                                    </select>
+                                <div class="col-6">
+                                    <label for="backup_camera" class="form-label small">Backup camera</label>
+                                    <input class="form-check-input" type="checkbox" name="backup_camera" id="backup_camera" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="blind_spot_monitoring" class="form-label small">Blind spot monitoring</label>
+                                    <input class="form-check-input" type="checkbox" name="blind_spot_monitoring" id="blind_spot_monitoring" />
                                 </div>
-                            </div>   
-                            {{/each}}
-                            {{!-- specifications loop end --}}    
+                                <div class="col-6">
+                                    <label for="curtain_airbags" class="form-label small">Curtain airbags</label>
+                                    <input class="form-check-input" type="checkbox" name="curtain_airbags" id="curtain_airbags" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="driver_airbag" class="form-label small">Driver airbag</label>
+                                    <input class="form-check-input" type="checkbox" name="driver_airbag" id="driver_airbag" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="front_side_airbags" class="form-label small">Front side airbags</label>
+                                    <input class="form-check-input" type="checkbox" name="front_side_airbags" id="front_side_airbags" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="parking_sensors" class="form-label small">Parking sensors</label>
+                                    <input class="form-check-input" type="checkbox" name="parking_sensors" id="parking_sensors" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="passenger_airbag" class="form-label small">Passenger airbag</label>
+                                    <input class="form-check-input" type="checkbox" name="passenger_airbag" id="passenger_airbag" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="alloy_wheels" class="form-label small">Alloy wheels</label>
+                                    <input class="form-check-input" type="checkbox" name="alloy_wheels" id="alloy_wheels" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="bluetooth" class="form-label small">Bluetooth</label>
+                                    <input class="form-check-input" type="checkbox" name="bluetooth" id="bluetooth" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="heated_seats" class="form-label small">Heated seats</label>
+                                    <input class="form-check-input" type="checkbox" name="heated_seats" id="heated_seats" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="leather_seats" class="form-label small">Leather seats</label>
+                                    <input class="form-check-input" type="checkbox" name="leather_seats" id="leather_seats" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="navigation_system" class="form-label small">Navigation system</label>
+                                    <input class="form-check-input" type="checkbox" name="navigation_system" id="navigation_system" />
+                                </div>
+                                <div class="col-6">
+                                    <label for="sunroof_moonroof" class="form-label small">Sunroof moonroof</label>
+                                    <input class="form-check-input" type="checkbox" name="sunroof_moonroof" id="sunroof_moonroof" />
+                               </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="technology_package" class="form-label small">Technology package</label>
+                                    <input class="form-check-input" type="checkbox" name="technology_package" id="technology_package" />
+                                </div>
+                            </div>    
                             <div class="row">
                                 <div class="col">
                                     <label for="description" class="form-label small">Description</label>
