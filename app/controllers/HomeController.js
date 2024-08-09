@@ -25,8 +25,8 @@ const login = async (req, res) => {
 
     req.session.token = jwt.sign(
         { id: user.id, username: username }, 
-        process.env.JWT_KEY, 
-        { expiresIn: 3600 }
+        process.env.JWT_KEY 
+        //{ expiresIn: 3600 }
     );
     
     req.session.user_id = user.id;
