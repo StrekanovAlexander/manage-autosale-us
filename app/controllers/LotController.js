@@ -377,6 +377,12 @@ const upload = async (req, res) => {
     return res.redirect(`/lots/${ id }/files`);  
 }
 
+const setImgDefault = async (req, res) => {
+    const { fileName, id } = req.body;
+    await Lot.update({ image: fileName }, { where: { id } });
+    return res.redirect(`/lots/${ id }/files`);
+}    
+
 module.exports = { 
     all, 
     create, 
@@ -388,5 +394,6 @@ module.exports = {
     editPrice, 
     currentLots, 
     files, 
-    upload
+    upload,
+    setImgDefault
 }

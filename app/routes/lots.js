@@ -17,4 +17,6 @@ router.post('/price/edit', auth, lotController.editPrice);
 router.get('/:id/files', lotController.files);
 router.post('/files/upload', lotController.upload);
 
+router.post('/files/set-default', lotController.setImgDefault);
+
 module.exports = router;
