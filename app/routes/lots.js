@@ -18,5 +18,6 @@ router.get('/:id/files', lotController.files);
 router.post('/files/upload', lotController.upload);
 
 router.post('/files/set-default', lotController.setImgDefault);
+router.post('/files/remove', lotController.removeImg);
 
 module.exports = router;

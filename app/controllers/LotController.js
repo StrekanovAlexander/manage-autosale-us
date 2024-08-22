@@ -378,8 +378,20 @@ const upload = async (req, res) => {
 }
 
 const setImgDefault = async (req, res) => {
-    const { fileName, id } = req.body;
-    await Lot.update({ image: fileName }, { where: { id } });
+    const { file_name, id } = req.body;
+    await Lot.update({ image: file_name }, { where: { id } });
+    return res.redirect(`/lots/${ id }/files`);
+}    
+
+const removeImg = async (req, res) => {
+    const { file_name, id, stock_id } = req.body;
+    const filePath = `${ process.env.IMAGES_PATH }/stocks/${ stock_id }/${ file_name }`;
+
+    const fileStat = fs.statSync(filePath);
+    if(fileStat.isFile()) {
+        fs.unlinkSync(filePath);
+    }    
+
     return res.redirect(`/lots/${ id }/files`);
 }    
 
@@ -395,5 +407,6 @@ module.exports = {
     currentLots, 
     files, 
     upload,
-    setImgDefault
+    setImgDefault,
+    removeImg
 }

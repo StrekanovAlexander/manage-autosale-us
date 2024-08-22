@@ -20,7 +20,7 @@
                     {{#if (equals ../lot.image this) }}
                         <i class="bi bi-check-circle-fill text-success"></i>
                     {{else}}
-                        <a href="#" title="Set as default" class="text-decoration-none btn-set-default"
+                        <a href="#" title="Set as default" class="text-decoration-none btn-set-image-default"
                             data-bs-toggle="modal" data-bs-target="#modalSetImageDefault" 
                             data-img-name="{{ this }}" 
                             data-img-src="{{ ../imagesURL }}/{{ ../lot.stock_id }}/{{ this }}"
@@ -28,9 +28,16 @@
                             <i class="bi bi-check-circle-fill text-muted"></i>
                         </a>
                     {{/if}}
-                    <a href="#" title="Remove" class="text-decoration-none">
+                    {{#unless (equals ../lot.image this) }}
+                    <a href="#" title="Remove" class="text-decoration-none btn-remove-image"
+                        data-bs-toggle="modal" data-bs-target="#modalRemoveImage" 
+                        data-img-name="{{ this }}" 
+                        data-img-src="{{ ../imagesURL }}/{{ ../lot.stock_id }}/{{ this }}"
+                        data-lot-id="{{ ../lot.id }}"
+                        data-stock-id="{{ ../lot.stock_id }}">
                         <i class="bi bi-trash3-fill text-danger"></i>
-                    </a>    
+                    </a> 
+                    {{/unless}}   
                 </div>    
             </div>        
         </div>
@@ -71,12 +78,44 @@
                     <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="submit" id="button-submit" class="btn btn-sm btn-primary">
-                        <i class="bi bi-save2"></i> Save
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-success">
+                        <i class="bi bi-save2"></i> Set as default
                     </button>
                 </div>
-                <input type="hidden" id="fileName" name="fileName" value="" />
-                <input type="hidden" id="lotId" name="id" value="" />
+                <input type="hidden" id="file_name" name="file_name" value="" />
+                <input type="hidden" id="lot_id" name="id" value="" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalRemoveImage">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/lots/files/remove" method="POST" id="form-remove-image">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <img src="" alt="Remove image" id="img-remove-selected" class="card-img-top">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <p class="fw-bold">Remove the image?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" id="button-submit" class="btn btn-sm btn-danger">
+                        <i class="bi bi-save2"></i> Remove
+                    </button>
+                </div>
+                <input type="hidden" id="file_name" name="file_name" value="" />
+                <input type="hidden" id="lot_id" name="id" value="" />
+                <input type="hidden" id="stock_id" name="stock_id" value="" />
             </form>
         </div>
     </div>
@@ -89,12 +128,21 @@
         document.querySelector('#img-target').src = ev.target.src;
     }));
 
-    const btnsSetDefault = document.querySelectorAll('.btn-set-default');
+    const btnsSetDefault = document.querySelectorAll('.btn-set-image-default');
     [...btnsSetDefault].forEach(el => el.addEventListener('click', () => {
         document.querySelector('#img-selected-default').src = el.dataset.imgSrc;
         const form = document.querySelector('#form-set-image-default');
-        form.querySelector('#fileName').value = el.dataset.imgName;
-        form.querySelector('#lotId').value = el.dataset.lotId;
+        form.querySelector('#file_name').value = el.dataset.imgName;
+        form.querySelector('#lot_id').value = el.dataset.lotId;
+    }));
+
+    const btnsRemove = document.querySelectorAll('.btn-remove-image');
+    [...btnsRemove].forEach(el => el.addEventListener('click', () => {
+        document.querySelector('#img-remove-selected').src = el.dataset.imgSrc;
+        const form = document.querySelector('#form-remove-image');
+        form.querySelector('#file_name').value = el.dataset.imgName;
+        form.querySelector('#lot_id').value = el.dataset.lotId;
+        form.querySelector('#stock_id').value = el.dataset.stockId;
     }));
 </script>
 {{/if}}
