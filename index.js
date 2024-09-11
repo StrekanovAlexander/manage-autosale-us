@@ -19,7 +19,7 @@ app.use(fileUpload({}));
 
 app.use(paginate.middleware(rowsLimit, rowsMaxLimit));
 
-app.use(session({ secret: process.env.JWT_KEY, resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESS_UUID, resave: false, saveUninitialized: true }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
