@@ -40,6 +40,7 @@ const boolValue = (value) => value === 'on' ? true : false;
 
 const all = async (req, res) => {
     const lots = await Lot.findAll({ 
+        where: { activity: true },
         order: [['activity', 'DESC'], ['created_at', 'DESC']], 
         include: [ Account, LotStatus, Model, User, VehicleStyle ] 
     });
@@ -51,6 +52,24 @@ const all = async (req, res) => {
         msg: message(req),
         breadcrumb: breadcrumb.build([
             breadcrumb.make('/lots', 'Lots')
+        ])
+     });
+}
+
+const deactivated = async (req, res) => {
+    const lots = await Lot.findAll({ 
+        where: { activity: false },
+        order: [['activity', 'DESC'], ['created_at', 'DESC']], 
+        include: [ Account, LotStatus, Model, User, VehicleStyle ] 
+    });
+    
+    res.render('lots', { 
+        title: 'Deactivated lots',
+        lots,
+        access: access.high(req),
+        msg: message(req),
+        breadcrumb: breadcrumb.build([
+            breadcrumb.make('/lots/deactivated', 'Deactivated lots')
         ])
      });
 }
@@ -170,8 +189,11 @@ const edit = async (req, res) => {
     const states = await State.findAll();
     const transmissions = await Transmission.findAll();
 
+    const title = lot.activity ? 'Lot' : 'Deactivated lot';
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
+
     res.render('lots/edit', {
-        title: `Lot editing`,
+        title: title,
         lot: lot.dataValues,
         accounts,
         brands,
@@ -187,8 +209,8 @@ const edit = async (req, res) => {
         script: scriptPath('lots.js'),
         msg: message(req),
         breadcrumb: breadcrumb.build([
-            breadcrumb.make('/lots', 'Lots'),
-            breadcrumb.make(`/lots/${ lot.id}/details`, `Stock No: ${lot.stock_id}`),
+            breadcrumb.make(route, title),
+            breadcrumb.make(`${ route }/${ lot.id }/details`, `Stock No: ${lot.stock_id}`),
             breadcrumb.make('#', 'Edit...'),
         ])
     });
@@ -210,8 +232,8 @@ const update = async (req, res) => {
     const body_style= await VehicleStyle.findByPk(vehicle_style_id);
     
     const lot = { ...req.body, 
-        make: brand.title,
-        model: model ? model.title : '',
+        make: brand.title || null,
+        model: model ? model.title : null,
         body_style: body_style.title, 
         mileage: mileage || null,
         mpg_city: mpg_city || null,
@@ -236,8 +258,10 @@ const update = async (req, res) => {
     
     await Lot.update(lot, { where: { id } });
     
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
+
     setMessage(req, `Lot was edited`, 'success');
-    res.redirect(`/lots/${ id }/details`);
+    res.redirect(`${ route }/${ id }/details`);
 }
 
 const details = async (req, res) => {
@@ -265,6 +289,9 @@ const details = async (req, res) => {
         User
     ] });
 
+    const title = lot.activity ? 'Lots' : 'Deactivated lots';
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
+
     const subAccounts = await Account.findAll({ order: [['title']], where: { activity: true, user_id: { [Op.ne]: null } } } );
     const operationTypes = await OperationType.findAll({ order: [['title']], where: {activity: true, is_car_cost: true}});
 
@@ -279,7 +306,7 @@ const details = async (req, res) => {
         script: scriptPath('lot-details.js'),
         msg: message(req),
         breadcrumb: breadcrumb.build([
-            breadcrumb.make('/lots', 'Lots'),
+            breadcrumb.make(route, title),
             breadcrumb.make('#', `Stock No: ${ lot.stock_id }`),
         ])
     });
@@ -331,9 +358,20 @@ const currentLots = async (req, res) => {
 
 const files = async (req, res) => {
     const lot = await Lot.findOne({ where: { id: req.params.id }, include: [Model] });
-
     const dir = `${ process.env.IMAGES_PATH }/stocks/${ lot.stock_id }`;
+
+    if (!fs.existsSync(dir)) {
+        fs.mkdir(`${ process.env.IMAGES_PATH }/stocks/${ lot.stock_id }`, (err) => {
+            if (err) {
+                return res.send('Path error...');
+            } 
+        });
+    }
+        
     const files = fs.readdirSync(dir).map(file => file);
+
+    const title = lot.activity ? 'Lots' : 'Deactivated lots';
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
 
     res.render('lots/files', {
         title: 'Files',
@@ -342,8 +380,8 @@ const files = async (req, res) => {
         imagesURL: `${ process.env.IMAGES_URL }/stocks`,
         msg: message(req),
         breadcrumb: breadcrumb.build([
-            breadcrumb.make('/lots', 'Lots'),
-            breadcrumb.make(`/lots/${ lot.id }/details`, `Stock No: ${ lot.stock_id }`),
+            breadcrumb.make(route, title),
+            breadcrumb.make(`${ route }/${ lot.id }/details`, `Stock No: ${ lot.stock_id }`),
             breadcrumb.make('#', 'Files'),
         ])
     });
@@ -351,6 +389,7 @@ const files = async (req, res) => {
 
 const upload = async (req, res) => {
     const { id, stock_id } = req.body;
+    const lot = await Lot.findOne({ where: { id } });
     
     if (!req.files) {
         setMessage(req, `File was not selected`, 'danger');
@@ -366,37 +405,47 @@ const upload = async (req, res) => {
         await Lot.update({ image: fileName }, { where: { id } });
     }
 
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
+
     req.files.vehicle.mv(`${ process.env.IMAGES_PATH }/stocks/${ stock_id }/${ fileName }`, (err) => {
         if (err) {
             setMessage(req, `File was not uploaded`, 'danger');
-            return res.redirect(`/lots/${ id }/files`); 
+            return res.redirect(`${ route }/${ id }/files`); 
         }
     });
 
     setMessage(req, `File was uploaded`, 'success');
-    return res.redirect(`/lots/${ id }/files`);  
+    return res.redirect(`${ route }/${ id }/files`);  
 }
 
 const setImgDefault = async (req, res) => {
     const { file_name, id } = req.body;
+    const lot = await Lot.findOne({ where: { id } });
+
     await Lot.update({ image: file_name }, { where: { id } });
-    return res.redirect(`/lots/${ id }/files`);
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
+
+    return res.redirect(`${ route }/${ id }/files`);
 }    
 
 const removeImg = async (req, res) => {
     const { file_name, id, stock_id } = req.body;
+    const lot = await Lot.findOne({ where: { id } });
     const filePath = `${ process.env.IMAGES_PATH }/stocks/${ stock_id }/${ file_name }`;
 
     const fileStat = fs.statSync(filePath);
     if(fileStat.isFile()) {
         fs.unlinkSync(filePath);
-    }    
+    }  
+    
+    const route = lot.activity ? '/lots' : '/lots/deactivated';
 
-    return res.redirect(`/lots/${ id }/files`);
-}    
+    return res.redirect(`${ route }/${ id }/files`);
+}  
 
 module.exports = { 
-    all, 
+    all,
+    deactivated, 
     create, 
     store, 
     edit, 

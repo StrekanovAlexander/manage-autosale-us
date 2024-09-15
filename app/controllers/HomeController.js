@@ -23,7 +23,7 @@ const login = async (req, res) => {
     }
 
     req.session.token = bcrypt.hashSync(Math.random().toString(36), bcrypt.genSaltSync());
-    res.cookie('session_token', req.session.token);
+    res.cookie('session_token', req.session.token, { maxAge: 60000 * 60 * 24 });
 
     req.session.user_id = user.id;
     req.session.grade = user.Role.grade;
