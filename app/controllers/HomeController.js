@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const helpers = require('../common/helpers.js');
 const breadcrumb = require('../common/breadcrumb.js');
@@ -23,12 +22,9 @@ const login = async (req, res) => {
         return res.redirect('/login');
     }
 
-    req.session.token = jwt.sign(
-        { id: user.id, username: username }, 
-        process.env.JWT_KEY, 
-        { expiresIn: '3h' }
-    );
-    
+    req.session.token = bcrypt.hashSync(Math.random().toString(36), bcrypt.genSaltSync());
+    res.cookie('session_token', req.session.token);
+
     req.session.user_id = user.id;
     req.session.grade = user.Role.grade;
     helpers.user = () => user.username;
