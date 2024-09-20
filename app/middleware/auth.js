@@ -1,18 +1,14 @@
-module.exports = (req, res, next) => {
+const bcrypt = require('bcrypt');
 
-    if (!req.cookies) {
-        return res.redirect('/login');
-    }
+module.exports = (req, res, next) => {
 
     if (!req.session.token) {
         return res.redirect('/login');
     }
 
-    if (!req.cookies['session_token']) {
-        return res.redirect('/login');
-    }
+    const match = bcrypt.compareSync(process.env.SESS_UUID, req.session.token);
 
-    if (req.session.token !== req.cookies['session_token']) {
+    if (!match) {
         return res.redirect('/login');
     }
 

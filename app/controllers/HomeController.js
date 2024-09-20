@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const helpers = require('../common/helpers.js');
-const breadcrumb = require('../common/breadcrumb.js');
+const helpers = require('../common/helpers');
+const breadcrumb = require('../common/breadcrumb');
 
 const Role = require('../models/Role.js');
 const User = require('../models/User.js');
@@ -22,9 +22,7 @@ const login = async (req, res) => {
         return res.redirect('/login');
     }
 
-    req.session.token = bcrypt.hashSync(Math.random().toString(36), bcrypt.genSaltSync());
-    res.cookie('session_token', req.session.token, { maxAge: 60000 * 60 * 24 });
-
+    req.session.token = bcrypt.hashSync(process.env.SESS_UUID, bcrypt.genSaltSync());
     req.session.user_id = user.id;
     req.session.grade = user.Role.grade;
     helpers.user = () => user.username;

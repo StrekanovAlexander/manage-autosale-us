@@ -5,7 +5,6 @@ const fileUpload = require('express-fileupload');
 const hbs = require('express-handlebars');
 const paginate = require('express-paginate');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 
 const helpers = require('./app/common/helpers');
 const routes = require('./app/routes');
@@ -22,11 +21,10 @@ app.use(paginate.middleware(rowsLimit, rowsMaxLimit));
 
 app.use(session({ 
   secret: process.env.SESS_UUID, 
-  saveUninitialized: false,
-  resave: false,
-  cookie: { maxAge: 60000 * 60 * 24 } 
+  saveUninitialized: true,
+  resave: true,
+  cookie: { maxAge: 86400000 } 
 }));
-app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
