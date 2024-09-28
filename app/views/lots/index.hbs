@@ -57,3 +57,24 @@
         <i class="bi bi-plus-square"></i> Add
     </a>
 </div>
+{{#if pages }}
+<nav aria-label="Page navigation">
+  <ul class="pagination pagination-sm justify-content-center">
+    <li class="page-item{{#unless hasPrevPage }} disabled{{/unless}}">
+      <a class="page-link" href="{{ prevPage }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {{#each pages}}
+    <li class="page-item{{#if (equals this.number ../paginate.page)}} active{{/if}}">
+        <a class="page-link" href="{{ this.url }}">{{ this.number }}</a>
+    </li>
+    {{/each}}
+    <li class="page-item{{#unless hasNextPage }} disabled{{/unless}}">
+      <a class="page-link" href="{{ nextPage }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{{/if}}

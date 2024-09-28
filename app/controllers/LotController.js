@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Op, Sequelize } = require('sequelize');
+const paginate = require('express-paginate');
 
 const Account = require('../models/Account.js');
 const Lot = require('../models/Lot.js');
@@ -39,15 +40,28 @@ Operation.belongsTo(User, { foreignKey: 'user_id' });
 const boolValue = (value) => value === 'on' ? true : false;
 
 const all = async (req, res) => {
-    const lots = await Lot.findAll({ 
+    const results = await Lot.findAndCountAll({ 
         where: { activity: true },
         order: [['activity', 'DESC'], ['created_at', 'DESC']], 
-        include: [ Account, LotStatus, Model, User, VehicleStyle ] 
+        include: [ Account, LotStatus, Model, User, VehicleStyle ],
+        limit: req.query.limit, 
+        offset: req.skip, 
     });
+
+    const pageCount = Math.ceil(results.count / req.query.limit);
+    const pages = pageCount > 1  ? 
+        paginate.getArrayPages(req)(req.query.limit, pageCount, req.query.page) : null;
+
+    // console.log(pageCount);
     
     res.render('lots', { 
         title: 'Lots',
-        lots,
+        lots: results.rows,
+        pages,
+        hasPrevPage: req.query.page > 1,
+        hasNextPage: req.query.page < pageCount,
+        prevPage: paginate.href(req)(true),
+        nextPage: paginate.href(req)(),
         access: access.high(req),
         msg: message(req),
         breadcrumb: breadcrumb.build([
@@ -57,15 +71,26 @@ const all = async (req, res) => {
 }
 
 const deactivated = async (req, res) => {
-    const lots = await Lot.findAll({ 
+    const results = await Lot.findAndCountAll({ 
         where: { activity: false },
         order: [['activity', 'DESC'], ['created_at', 'DESC']], 
-        include: [ Account, LotStatus, Model, User, VehicleStyle ] 
+        include: [ Account, LotStatus, Model, User, VehicleStyle ],
+        limit: req.query.limit, 
+        offset: req.skip,  
     });
+    
+    const pageCount = Math.ceil(results.count / req.query.limit);
+    const pages = pageCount > 1  ? 
+        paginate.getArrayPages(req)(req.query.limit, pageCount, req.query.page) : null;
     
     res.render('lots', { 
         title: 'Deactivated lots',
-        lots,
+        lots: results.rows,
+        pages,
+        hasPrevPage: req.query.page > 1,
+        hasNextPage: req.query.page < pageCount,
+        prevPage: paginate.href(req)(true),
+        nextPage: paginate.href(req)(),
         access: access.high(req),
         msg: message(req),
         breadcrumb: breadcrumb.build([
