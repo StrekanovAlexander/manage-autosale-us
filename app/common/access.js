@@ -1,8 +1,8 @@
 const { setMessage } = require('./message.js');
 
-const high = (req) => req.session.grade === 'xx';
-const middle = (req) => req.session.grade === 'x-';
-const low = (req) => req.session.grade === '--';
+const high = (req) => true; // req.session.grade === 'xx';
+const middle = (req) => true; // req.session.grade === 'x-';
+const low = (req) => true; //req.session.grade === '--';
 
 const isAllow = (req, fn) => {
     if (!fn(req)) {

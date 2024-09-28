@@ -4,7 +4,8 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const hbs = require('express-handlebars');
 const paginate = require('express-paginate');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
+// const session = require('express-session');
 
 const helpers = require('./app/common/helpers');
 const routes = require('./app/routes');
@@ -15,16 +16,16 @@ const rowsMaxLimit = rowsLimit;
 
 const app = express();
 
+app.use(cookieParser());
 app.use(fileUpload({}));
-
 app.use(paginate.middleware(rowsLimit, rowsMaxLimit));
 
-app.use(session({ 
-  secret: process.env.SESS_UUID, 
-  saveUninitialized: true,
-  resave: true,
-  cookie: { maxAge: 86400000 } 
-}));
+// app.use(session({ 
+//   secret: process.env.SESS_UUID, 
+//   saveUninitialized: true,
+//   resave: true,
+//   cookie: { maxAge: 86400000 } 
+// }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
