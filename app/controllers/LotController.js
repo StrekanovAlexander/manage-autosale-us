@@ -369,7 +369,7 @@ const currentLots = async (req, res) => {
         el.dataValues.days_downtime = utils.daysDiff(el.date_buy, utils.currentDate());
         el.dataValues.total_cost = await Operation.sum('amount', { where: { lot_id: el.id } });
         el.dataValues.money_price = utils.moneyPrice(el.dataValues.total_cost, el.dataValues.days_downtime);
-        el.dataValues.target_margin = el.dataValues.target_price - el.dataValues.total_cost;
+        el.dataValues.target_margin = utils.targetMargin(el.dataValues.target_price, el.dataValues.total_cost);
         el.dataValues.marginality = utils.marginality(el.dataValues.target_price, el.dataValues.total_cost);
         return el;
     }));
